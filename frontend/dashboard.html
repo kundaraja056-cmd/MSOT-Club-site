@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MSOT Club Activities — Student Dashboard</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Caveat for hand-drawn accents -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       CSS VARIABLES & GLOBAL RESET
+       ========================================================= */
+    :root {
+      --primary-blue: #0054c8;
+      --primary-blue-dark: #0041a8;
+      --primary-blue-light: #ebf3ff;
+      --primary-gradient: linear-gradient(135deg, #094cb5 0%, #0d62d9 55%, #1976d2 100%);
+      --bg-canvas: #edf3fa;
+      --bg-white: #ffffff;
+      --text-main: #172b4d;
+      --text-muted: #626f86;
+      --text-light: #8993a4;
+      --border-soft: #e2e8f0;
+      --border-card: #e5eaf2;
+
+      /* Tag Accents */
+      --tag-coding: #6366f1;
+      --tag-arts: #ec4899;
+      --tag-sports: #10b981;
+      --tag-green: #14b8a6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =========================================================
+       1. TOP NAVBAR
+       ========================================================= */
+    .top-navbar {
+      background: var(--primary-blue);
+      color: #ffffff;
+      height: 64px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0, 40, 120, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand-flower-icon {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: #bfdbfe;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-menu-list {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-menu-item {
+      display: inline-block;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: background 0.18s ease;
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .nav-link.active-nav-link {
+      background: rgba(255, 255, 255, 0.22);
+      box-shadow: inset 0 -2px 0 #ffffff;
+    }
+
+    .nav-badge-pill {
+      background: #ef4444;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 1px 6px;
+      margin-left: 2px;
+    }
+
+    .user-profile-widget {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 10px;
+      transition: background 0.18s ease;
+    }
+
+    .user-profile-widget:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .user-avatar-image {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      object-fit: cover;
+    }
+
+    .user-credentials-block {
+      text-align: left;
+    }
+
+    .user-full-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .user-role-text {
+      font-size: 11px;
+      color: #bfdbfe;
+      font-weight: 500;
+    }
+
+    .chevron-down-icon {
+      color: #ffffff;
+      opacity: 0.85;
+    }
+
+    /* =========================================================
+       2. DASHBOARD BODY LAYOUT
+       ========================================================= */
+    .dashboard-layout-container {
+      display: flex;
+      flex: 1;
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 24px 32px;
+      gap: 22px;
+    }
+
+    /* =========================================================
+       3. LEFT SIDEBAR
+       ========================================================= */
+    .sidebar-wrapper {
+      width: 215px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-navigation-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 12px 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-card);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .sidebar-nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sidebar-nav-item:hover {
+      color: var(--primary-blue);
+      background: #f1f5f9;
+    }
+
+    .sidebar-nav-item.active-sidebar-item {
+      background: #e8f0fe;
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+
+    .sidebar-badge {
+      background: #ef4444;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 1px 6px;
+    }
+
+    .sidebar-arrow-chevron {
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    /* Campus Selector Widget */
+    .campus-selector-box {
+      background: var(--bg-white);
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-card);
+    }
+
+    .campus-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .campus-dropdown {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      font-size: 12.5px;
+      font-family: inherit;
+      color: var(--text-main);
+      outline: none;
+      background: #f8fafc;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Small Steps Motivation Banner */
+    .motivation-card-widget {
+      background: linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%);
+      border-radius: 16px;
+      padding: 18px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #bfdbfe;
+    }
+
+    .motivation-quote-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1e3a8a;
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+
+    .motivation-illustration-svg {
+      width: 100%;
+      height: 96px;
+    }
+
+    /* Desktop Version Pill Bottom Left */
+    .desktop-version-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e2e8f0;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #334155;
+      width: fit-content;
+      margin-top: auto;
+    }
+
+    /* =========================================================
+       4. MAIN DASHBOARD CONTENT AREA
+       ========================================================= */
+    .dashboard-main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      min-width: 0;
+    }
+
+    /* Hero Banner */
+    .welcome-hero-banner {
+      background: var(--primary-gradient);
+      border-radius: 20px;
+      color: #ffffff;
+      padding: 28px 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 8px 24px rgba(9, 76, 181, 0.2);
+    }
+
+    .hero-campus-photo-backdrop {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 52%;
+      background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.9;
+      mask-image: linear-gradient(to right, transparent 0%, black 45%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%);
+      pointer-events: none;
+    }
+
+    .hero-text-content {
+      position: relative;
+      z-index: 2;
+      max-width: 540px;
+    }
+
+    .hero-welcome-badge {
+      font-size: 13.5px;
+      color: #bae6fd;
+      font-weight: 600;
+    }
+
+    .hero-main-title {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+      margin: 4px 0 8px;
+    }
+
+    .hero-bullet-points {
+      font-size: 13px;
+      color: #dbeafe;
+      font-weight: 500;
+      display: flex;
+      gap: 12px;
+    }
+
+    .hero-handwritten-doodle {
+      position: absolute;
+      right: 47%;
+      top: 24px;
+      font-family: 'Caveat', cursive;
+      font-size: 17px;
+      color: #ffffff;
+      text-align: right;
+      line-height: 1.25;
+      transform: rotate(-3deg);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-search-container {
+      position: relative;
+      max-width: 440px;
+      z-index: 2;
+      margin-top: 2px;
+    }
+
+    .hero-search-input {
+      width: 100%;
+      padding: 12px 44px 12px 18px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      color: #0f172a;
+    }
+
+    .hero-search-icon-btn {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #0f172a;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Section Headers */
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-headline {
+      font-size: 17.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .section-action-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.15s;
+    }
+
+    .section-action-link:hover {
+      color: var(--primary-blue-dark);
+      text-decoration: underline;
+    }
+
+    /* =========================================================
+       5. FEATURED CLUBS (4 CARDS)
+       ========================================================= */
+    .featured-clubs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .club-card {
+      background: var(--bg-white);
+      border-radius: 14px;
+      border: 1px solid var(--border-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .club-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+      border-color: #cbd5e1;
+    }
+
+    .club-image-box {
+      height: 115px;
+      position: relative;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .club-banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .club-card:hover .club-banner-image {
+      transform: scale(1.05);
+    }
+
+    .club-category-pill {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .category-coding { background: var(--tag-coding); }
+    .category-arts { background: var(--tag-arts); }
+    .category-sports { background: var(--tag-sports); }
+    .category-green { background: var(--tag-green); }
+
+    .club-info-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .club-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .club-tagline {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .club-footer-row {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .club-members-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+
+    .join-club-button {
+      background: var(--primary-blue);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 11px;
+      font-size: 11.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s ease;
+    }
+
+    .join-club-button:hover {
+      background: var(--primary-blue-dark);
+    }
+
+    /* =========================================================
+       6. QUICK ACTION ROW (4 CARDS MATCHING SCREENSHOT)
+       ========================================================= */
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .action-card {
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .action-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .action-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .action-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .action-text-wrap h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .action-text-wrap p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .action-arrow-indicator {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* Colors for each action card */
+    .action-create-club { background: #f0f4ff; border: 1px solid #dbeafe; }
+    .action-create-club .action-icon-circle { background: #6366f1; color: white; }
+    .action-create-club .action-arrow-indicator { color: #6366f1; }
+
+    .action-apply-club { background: #e6f9f0; border: 1px solid #bbf2d7; }
+    .action-apply-club .action-icon-circle { background: #10b981; color: white; }
+    .action-apply-club .action-arrow-indicator { color: #10b981; }
+
+    .action-club-events { background: #fef7e6; border: 1px solid #fde68a; }
+    .action-club-events .action-icon-circle { background: #f59e0b; color: white; }
+    .action-club-events .action-arrow-indicator { color: #f59e0b; }
+
+    .action-club-registry { background: #fdf2f2; border: 1px solid #fecaca; }
+    .action-club-registry .action-icon-circle { background: #ef4444; color: white; }
+    .action-club-registry .action-arrow-indicator { color: #ef4444; }
+
+    /* =========================================================
+       7. UPCOMING EVENTS (4 CARDS)
+       ========================================================= */
+    .upcoming-events-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .event-card {
+      background: var(--bg-white);
+      border-radius: 14px;
+      border: 1px solid var(--border-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .event-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    }
+
+    .event-media-container {
+      height: 105px;
+      position: relative;
+    }
+
+    .event-thumbnail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-calendar-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(15, 23, 42, 0.92);
+      color: #ffffff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      text-align: center;
+      line-height: 1.1;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .event-date-day {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .event-date-month {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #93c5fd;
+    }
+
+    .event-details-content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .event-headline-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .event-organizer-tag {
+      font-size: 11px;
+      color: var(--primary-blue);
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .event-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       8. BOTTOM QUOTE FOOTER
+       ========================================================= */
+    .community-quote-footer {
+      background: linear-gradient(90deg, #dbeafe 0%, #e0f2fe 100%);
+      border-radius: 14px;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #bfdbfe;
+    }
+
+    .quote-text-quote {
+      font-size: 13.5px;
+      font-style: italic;
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+
+    .quote-community-icon {
+      width: 48px;
+      height: 28px;
+      fill: #2563eb;
+    }
+
+    /* =========================================================
+       9. POPUP MODAL (SHOWS WHEN A CLUB IS CLICKED)
+       ========================================================= */
+    .club-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      padding: 16px;
+    }
+
+    .club-modal-overlay.modal-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .club-modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 540px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      transform: translateY(20px);
+      transition: transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .club-modal-overlay.modal-active .club-modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-banner-image-wrap {
+      height: 160px;
+      position: relative;
+    }
+
+    .modal-banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-close-icon-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .modal-close-icon-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-body-content {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-club-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .modal-club-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: white;
+      width: fit-content;
+    }
+
+    .modal-club-description {
+      font-size: 13.5px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .modal-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .modal-detail-item-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .modal-detail-item-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .modal-actions-footer {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .modal-confirm-join-btn {
+      flex: 1;
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .modal-confirm-join-btn:hover {
+      background: var(--primary-blue-dark);
+    }
+
+    .modal-cancel-btn {
+      background: #e2e8f0;
+      color: #334155;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Floating AI Club Tutor Button */
+    .floating-ai-tutor-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(0, 84, 200, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      z-index: 99;
+      transition: transform 0.2s;
+    }
+
+    .floating-ai-tutor-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* =========================================================
+       10. RESPONSIVE BREAKPOINTS
+       ========================================================= */
+    @media (max-width: 1200px) {
+      .featured-clubs-grid, .upcoming-events-grid { grid-template-columns: repeat(2, 1fr); }
+      .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 860px) {
+      .sidebar-wrapper { display: none; }
+      .dashboard-layout-container { padding: 14px; }
+      .featured-clubs-grid, .upcoming-events-grid, .quick-actions-grid { grid-template-columns: 1fr; }
+      .hero-campus-photo-backdrop { display: none; }
+      .hero-handwritten-doodle { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =======================================================
+       TOP NAVBAR
+       ======================================================= -->
+  <header class="top-navbar">
+    <a href="#" class="brand-container">
+      <svg class="brand-flower-icon" viewBox="0 0 24 24">
+        <path d="M12 2C12 2 7 7 7 13C7 16.87 10.13 20 14 20C17.87 20 21 16.87 21 13C21 7 12 2 12 2Z" fill="#bae6fd" opacity="0.6"/>
+        <path d="M12 2C12 2 17 7 17 13C17 16.87 13.87 20 10 20C6.13 20 3 16.87 3 13C3 7 12 2 12 2Z" fill="#38bdf8"/>
+        <path d="M12 5C12 5 9 9 9 14C9 17.31 10.69 20 12 22C13.31 20 15 17.31 15 14C15 9 12 5 12 5Z" fill="#ffffff"/>
+      </svg>
+      <div class="brand-text-block">
+        <h1 class="brand-title">MSOT</h1>
+        <span class="brand-subtitle">Club Activities</span>
+      </div>
+    </a>
+
+    <nav class="nav-menu-bar">
+      <ul class="nav-menu-list">
+        <li class="nav-menu-item">
+          <a href="#" class="nav-link active-nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Home
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a href="#" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Clubs
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a href="#" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Club Registry
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a href="#" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            Events
+          </a>
+        </li>
+        <li class="nav-menu-item">
+          <a href="#" class="nav-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Notifications
+            <span class="nav-badge-pill">3</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- User Profile Dropdown -->
+    <div class="user-profile-widget" onclick="handleUserLogout()" title="Click to Sign Out">
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-avatar-image" />
+      <div class="user-credentials-block">
+        <div class="user-full-name" id="userNameLabel">Aarav Sharma</div>
+        <div class="user-role-text" id="userRoleLabel">Student</div>
+      </div>
+      <svg class="chevron-down-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </header>
+
+  <!-- =======================================================
+       MAIN CONTAINER
+       ======================================================= -->
+  <div class="dashboard-layout-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-wrapper">
+      <div class="sidebar-navigation-card">
+        <a href="#" class="sidebar-nav-item active-sidebar-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Home
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            My Profile
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            Participation
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            My Clubs
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Clubs
+          </div>
+          <span class="sidebar-arrow-chevron">&rsaquo;</span>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Events
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Calendar
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Submissions
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
+            Notifications
+          </div>
+          <span class="sidebar-badge">3</span>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Leave Request
+          </div>
+        </a>
+        <a href="#" class="sidebar-nav-item">
+          <div class="sidebar-nav-item-left">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Settings
+          </div>
+        </a>
+      </div>
+
+      <!-- Campus Select -->
+      <div class="campus-selector-box">
+        <label class="campus-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          My Campus
+        </label>
+        <select class="campus-dropdown">
+          <option selected>Rathinam Campus</option>
+          <option>Main Campus</option>
+        </select>
+      </div>
+
+      <!-- Motivation Widget -->
+      <div class="motivation-card-widget">
+        <p class="motivation-quote-title">Small steps lead to great achievements!</p>
+        <svg class="motivation-illustration-svg" viewBox="0 0 200 120" fill="none">
+          <path d="M10 110 L55 92 L100 70 L145 48 L180 26" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="100" cy="55" r="8" fill="#1d4ed8"/>
+          <path d="M100 63 V85 M100 70 L90 80 M100 70 L110 80" stroke="#1d4ed8" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="180" cy="16" r="8" fill="#2563eb"/>
+          <path d="M180 24 V46 M180 30 L170 40 M180 30 L190 40" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <!-- Desktop Version Pill -->
+      <div class="desktop-version-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Desktop Version
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <main class="dashboard-main-content">
+
+      <!-- HERO BANNER -->
+      <section class="welcome-hero-banner">
+        <div class="hero-campus-photo-backdrop"></div>
+        <div class="hero-text-content">
+          <div class="hero-welcome-badge">Welcome to</div>
+          <h2 class="hero-main-title">MSOT Club Activities</h2>
+          <div class="hero-bullet-points">
+            <span>Join clubs</span> • <span>Build skills</span> • <span>Create memories</span>
+          </div>
+
+          <div class="hero-search-container">
+            <input type="text" class="hero-search-input" placeholder="Search for clubs, events, or activities..." />
+            <button class="hero-search-icon-btn" title="Search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-handwritten-doodle">
+          More Clubs<br>More Opportunities<br>A Better You &#9992;
+        </div>
+      </section>
+
+      <!-- FEATURED CLUBS (4 CARDS) -->
+      <section class="featured-clubs-section">
+        <div class="section-header-row">
+          <h3 class="section-headline">Featured Clubs</h3>
+          <a href="#" class="section-action-link">View All &rarr;</a>
+        </div>
+
+        <div class="featured-clubs-grid">
+          <!-- Club 1: Coding -->
+          <div class="club-card" data-club-id="coding" onclick="openClubModal('coding')">
+            <div class="club-image-box">
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop&q=80" alt="Coding Club" class="club-banner-image" />
+              <span class="club-category-pill category-coding">Tech & Coding</span>
+            </div>
+            <div class="club-info-body">
+              <h4 class="club-title">Coding Club</h4>
+              <p class="club-tagline">Explore, Build, Innovate</p>
+              <div class="club-footer-row">
+                <span class="club-members-count">&#128101; 120 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('coding')">Join Club &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Club 2: Arts -->
+          <div class="club-card" data-club-id="arts" onclick="openClubModal('arts')">
+            <div class="club-image-box">
+              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&auto=format&fit=crop&q=80" alt="Creative Arts" class="club-banner-image" />
+              <span class="club-category-pill category-arts">Art & Culture</span>
+            </div>
+            <div class="club-info-body">
+              <h4 class="club-title">Creative Arts Club</h4>
+              <p class="club-tagline">Express Your Creativity</p>
+              <div class="club-footer-row">
+                <span class="club-members-count">&#128101; 95 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('arts')">Join Club &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Club 3: Sports -->
+          <div class="club-card" data-club-id="sports" onclick="openClubModal('sports')">
+            <div class="club-image-box">
+              <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&auto=format&fit=crop&q=80" alt="Sports Club" class="club-banner-image" />
+              <span class="club-category-pill category-sports">Sports</span>
+            </div>
+            <div class="club-info-body">
+              <h4 class="club-title">Sports Club</h4>
+              <p class="club-tagline">Play • Compete • Grow</p>
+              <div class="club-footer-row">
+                <span class="club-members-count">&#128101; 150 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('sports')">Join Club &rarr;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Club 4: Green Earth -->
+          <div class="club-card" data-club-id="green" onclick="openClubModal('green')">
+            <div class="club-image-box">
+              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=80" alt="Green Earth" class="club-banner-image" />
+              <span class="club-category-pill category-green">Environment</span>
+            </div>
+            <div class="club-info-body">
+              <h4 class="club-title">Green Earth Club</h4>
+              <p class="club-tagline">Save Nature • Save Future</p>
+              <div class="club-footer-row">
+                <span class="club-members-count">&#128101; 80 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('green')">Join Club &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 QUICK ACTION TILES (MATCHING SCREENSHOT) -->
+      <section class="quick-actions-section">
+        <div class="quick-actions-grid">
+          <!-- 1: Create a New Club -->
+          <a href="javascript:void(0)" class="action-card action-create-club" onclick="alert('Club creation request submitted to Faculty Mentor!')">
+            <div class="action-card-left">
+              <div class="action-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div class="action-text-wrap">
+                <h4>Create a New Club</h4>
+                <p>Start your own club and bring your ideas to life.</p>
+              </div>
+            </div>
+            <span class="action-arrow-indicator">&rarr;</span>
+          </a>
+
+          <!-- 2: Apply to a Club -->
+          <a href="javascript:void(0)" class="action-card action-apply-club" onclick="openClubModal('coding')">
+            <div class="action-card-left">
+              <div class="action-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              </div>
+              <div class="action-text-wrap">
+                <h4>Apply to a Club</h4>
+                <p>Be a part of something great!</p>
+              </div>
+            </div>
+            <span class="action-arrow-indicator">&rarr;</span>
+          </a>
+
+          <!-- 3: Club Events -->
+          <a href="javascript:void(0)" class="action-card action-club-events" onclick="alert('Viewing Upcoming Club Events Schedule.')">
+            <div class="action-card-left">
+              <div class="action-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="action-text-wrap">
+                <h4>Club Events</h4>
+                <p>Explore upcoming events & activities.</p>
+              </div>
+            </div>
+            <span class="action-arrow-indicator">&rarr;</span>
+          </a>
+
+          <!-- 4: Club Registry -->
+          <a href="javascript:void(0)" class="action-card action-club-registry" onclick="alert('Access Restricted: Club Registry is available for Campus Managers & Faculty only.')">
+            <div class="action-card-left">
+              <div class="action-icon-circle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="action-text-wrap">
+                <h4>Club Registry</h4>
+                <p>For Campus Managers Only</p>
+              </div>
+            </div>
+            <span class="action-arrow-indicator">&rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- UPCOMING EVENTS (4 CARDS) -->
+      <section class="upcoming-events-section">
+        <div class="section-header-row">
+          <h3 class="section-headline">Upcoming Events</h3>
+          <a href="#" class="section-action-link">View Calendar &rarr;</a>
+        </div>
+
+        <div class="upcoming-events-grid">
+          <!-- Event 1 -->
+          <div class="event-card">
+            <div class="event-media-container">
+              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80" alt="Hackathon" class="event-thumbnail-img" />
+              <div class="event-calendar-badge">
+                <div class="event-date-day">12</div>
+                <div class="event-date-month">Apr</div>
+              </div>
+            </div>
+            <div class="event-details-content">
+              <h4 class="event-headline-title">Hackathon 2026</h4>
+              <div class="event-organizer-tag">Coding Club</div>
+              <div class="event-meta-row">&#128337; 10:00 AM - 04:00 PM</div>
+              <div class="event-meta-row">&#128205; Main Block Auditorium</div>
+            </div>
+          </div>
+
+          <!-- Event 2 -->
+          <div class="event-card">
+            <div class="event-media-container">
+              <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&auto=format&fit=crop&q=80" alt="Art Exhibition" class="event-thumbnail-img" />
+              <div class="event-calendar-badge">
+                <div class="event-date-day">15</div>
+                <div class="event-date-month">Apr</div>
+              </div>
+            </div>
+            <div class="event-details-content">
+              <h4 class="event-headline-title">Art Exhibition</h4>
+              <div class="event-organizer-tag">Creative Arts Club</div>
+              <div class="event-meta-row">&#128337; 09:00 AM - 05:00 PM</div>
+              <div class="event-meta-row">&#128205; Cultural Center</div>
+            </div>
+          </div>
+
+          <!-- Event 3 -->
+          <div class="event-card">
+            <div class="event-media-container">
+              <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&auto=format&fit=crop&q=80" alt="Sports Meet" class="event-thumbnail-img" />
+              <div class="event-calendar-badge">
+                <div class="event-date-day">18</div>
+                <div class="event-date-month">Apr</div>
+              </div>
+            </div>
+            <div class="event-details-content">
+              <h4 class="event-headline-title">Sports Meet</h4>
+              <div class="event-organizer-tag">Sports Club</div>
+              <div class="event-meta-row">&#128337; 08:00 AM - 05:00 PM</div>
+              <div class="event-meta-row">&#128205; Sports Ground</div>
+            </div>
+          </div>
+
+          <!-- Event 4 -->
+          <div class="event-card">
+            <div class="event-media-container">
+              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=80" alt="Green Drive" class="event-thumbnail-img" />
+              <div class="event-calendar-badge">
+                <div class="event-date-day">22</div>
+                <div class="event-date-month">Apr</div>
+              </div>
+            </div>
+            <div class="event-details-content">
+              <h4 class="event-headline-title">Green Drive</h4>
+              <div class="event-organizer-tag">Green Earth Club</div>
+              <div class="event-meta-row">&#128337; 10:00 AM - 02:00 PM</div>
+              <div class="event-meta-row">&#128205; Campus Garden</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTTOM QUOTE FOOTER -->
+      <footer class="community-quote-footer">
+        <blockquote class="quote-text-quote">
+          &ldquo;Clubs are not just about activities, they are about people, passion and purpose.&rdquo;
+        </blockquote>
+        <svg class="quote-community-icon" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </footer>
+    </main>
+  </div>
+
+  <!-- =======================================================
+       CLUB DETAILS POPUP MODAL (SHOWS ON CARD CLICK)
+       ======================================================= -->
+  <div class="club-modal-overlay" id="clubModalOverlay" onclick="closeClubModal(event)">
+    <div class="club-modal-card" onclick="event.stopPropagation()">
+      <div class="modal-banner-image-wrap">
+        <img id="modalClubImg" src="" alt="Club Banner" class="modal-banner-image" />
+        <button class="modal-close-icon-btn" onclick="closeClubModal()">&times;</button>
+      </div>
+      <div class="modal-body-content">
+        <span id="modalClubBadge" class="modal-club-badge">Tech</span>
+        <h3 id="modalClubTitle" class="modal-club-title">Coding Club</h3>
+        <p id="modalClubDesc" class="modal-club-description"></p>
+
+        <div class="modal-details-grid">
+          <div>
+            <div class="modal-detail-item-title">Club Leads</div>
+            <div id="modalClubLeads" class="modal-detail-item-value">Priyanshu & Team</div>
+          </div>
+          <div>
+            <div class="modal-detail-item-title">Total Members</div>
+            <div id="modalClubMembers" class="modal-detail-item-value">120 Students</div>
+          </div>
+          <div>
+            <div class="modal-detail-item-title">Weekly Meetup</div>
+            <div id="modalClubSchedule" class="modal-detail-item-value">Fridays 4:00 PM</div>
+          </div>
+          <div>
+            <div class="modal-detail-item-title">Room / Lab</div>
+            <div id="modalClubVenue" class="modal-detail-item-value">Tech Lab 3B</div>
+          </div>
+        </div>
+
+        <div class="modal-actions-footer">
+          <button class="modal-confirm-join-btn" onclick="confirmClubJoin()">Join This Club</button>
+          <button class="modal-cancel-btn" onclick="closeClubModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Ask Club AI Button (Connected to Gemini Backend) -->
+  <button class="floating-ai-tutor-btn" onclick="askClubAITutor()">
+    <span>&#10024;</span> Ask Club AI
+  </button>
+
+  <!-- =======================================================
+       JAVASCRIPT LOGIC
+       ======================================================= -->
+  <script>
+    // 1. Session verification & auto-population from SQLite database
+    const sessionRaw = localStorage.getItem('user_session');
+    if (!sessionRaw) {
+      window.location.href = 'index.html';
+    } else {
+      const user = JSON.parse(sessionRaw);
+      document.getElementById('userNameLabel').textContent = user.name || 'Aarav Sharma';
+      document.getElementById('userRoleLabel').textContent = user.role ? user.role.toUpperCase() : 'STUDENT';
+    }
+
+    function handleUserLogout() {
+      if (confirm('Do you want to log out of your club portal?')) {
+        localStorage.removeItem('user_session');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // 2. Comprehensive Club Database for the Interactive Modal
+    const clubDatabase = {
+      coding: {
+        title: "Coding Club",
+        category: "Tech & Coding",
+        badgeClass: "category-coding",
+        img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&auto=format&fit=crop&q=80",
+        description: "Explore cutting-edge software development, AI, hackathons, and web architectures. We hold weekly live coding sessions, algorithmic challenges, and collaborate on real open-source club projects.",
+        leads: "Priyanshu (Lead) & Core Team",
+        members: "120 Active Members",
+        schedule: "Every Friday • 4:00 PM",
+        venue: "Computer Lab 3B, Main Block"
+      },
+      arts: {
+        title: "Creative Arts Club",
+        category: "Art & Culture",
+        badgeClass: "category-arts",
+        img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop&q=80",
+        description: "Express your creativity across sketching, digital art, photography, canvas painting, and exhibition design. Join us to design club festival posters, stage themes, and gallery installations.",
+        leads: "Sneha & Priti",
+        members: "95 Active Members",
+        schedule: "Every Wednesday • 3:30 PM",
+        venue: "Cultural Center Studio"
+      },
+      sports: {
+        title: "Sports Club",
+        category: "Sports",
+        badgeClass: "category-sports",
+        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80",
+        description: "Promoting physical fitness, team discipline, and competitive spirit. We organize intra-college football, cricket, basketball, and badminton tournaments throughout the semester.",
+        leads: "Kundan & Navya",
+        members: "150 Active Members",
+        schedule: "Tue & Thu • 5:00 PM",
+        venue: "University Sports Ground"
+      },
+      green: {
+        title: "Green Earth Club",
+        category: "Environment",
+        badgeClass: "category-green",
+        img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop&q=80",
+        description: "Committed to sustainability, campus plantation drives, recycling initiatives, and clean energy awareness. Make a direct tangible difference in our college environment.",
+        leads: "Eco Advisory Council",
+        members: "80 Active Members",
+        schedule: "Every Saturday • 9:00 AM",
+        venue: "Botanical Campus Garden"
+      }
+    };
+
+    let activeSelectedClub = null;
+
+    // 3. Open Modal Function
+    function openClubModal(clubId) {
+      const club = clubDatabase[clubId];
+      if (!club) return;
+
+      activeSelectedClub = club;
+      document.getElementById('modalClubTitle').textContent = club.title;
+      document.getElementById('modalClubImg').src = club.img;
+      document.getElementById('modalClubDesc').textContent = club.description;
+      document.getElementById('modalClubLeads').textContent = club.leads;
+      document.getElementById('modalClubMembers').textContent = club.members;
+      document.getElementById('modalClubSchedule').textContent = club.schedule;
+      document.getElementById('modalClubVenue').textContent = club.venue;
+
+      const badge = document.getElementById('modalClubBadge');
+      badge.textContent = club.category;
+      badge.className = `modal-club-badge ${club.badgeClass}`;
+
+      document.getElementById('clubModalOverlay').classList.add('modal-active');
+    }
+
+    // 4. Close Modal Function
+    function closeClubModal(e) {
+      if (!e || e.target.id === 'clubModalOverlay' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('clubModalOverlay').classList.remove('modal-active');
+      }
+    }
+
+    // 5. Join Club Handler
+    function confirmClubJoin() {
+      if (activeSelectedClub) {
+        alert(`Application Submitted! Welcome to ${activeSelectedClub.title}.\nThe club leads will contact you for orientation.`);
+        closeClubModal();
+      }
+    }
+
+    // 6. Gemini AI Assistant integration
+    function askClubAITutor() {
+      const promptText = prompt('Ask the MSOT Club AI Assistant a question:');
+      if (!promptText) return;
+
+      const user = JSON.parse(localStorage.getItem('user_session') || '{}');
+
+      fetch('http://127.0.0.1:8000/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: promptText, user_id: user.id || 1 })
+      })
+      .then(res => res.json())
+      .then(data => alert(`MSOT AI Assistant:\n\n${data.reply}`))
+      .catch(() => alert('Could not connect to FastAPI server on port 8000.'));
+    }
+  </script>
+</body>
+</html>
