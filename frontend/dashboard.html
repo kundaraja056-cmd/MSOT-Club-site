@@ -655,102 +655,94 @@
 
     /* Hero Banner */
     .welcome-hero-banner {
-      background: var(--primary-gradient);
+      width: 100%;
+      aspect-ratio: 1024 / 435;
+      background: url('assets/welcome-hero-bg.png') no-repeat center center;
+      background-size: 100% 100%;
       border-radius: 20px;
-      color: #ffffff;
-      padding: 28px 36px;
       position: relative;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      box-shadow: 0 8px 24px rgba(9, 76, 181, 0.2);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border-soft);
     }
 
-    .hero-campus-photo-backdrop {
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: 60%;
-      background-image: url('assets/college-club-hero.jpg');
-      background-size: cover;
-      background-position: right center;
-      opacity: 0.95;
-      mask-image: linear-gradient(to right, transparent 0%, black 35%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
-      pointer-events: none;
-    }
-
-    .hero-text-content {
-      position: relative;
-      z-index: 2;
-      max-width: 540px;
-    }
-
-    .hero-welcome-badge {
-      font-size: 13.5px;
-      color: #bae6fd;
-      font-weight: 600;
-    }
-
-    .hero-main-title {
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      line-height: 1.15;
-      margin: 4px 0 8px;
-    }
-
-    .hero-bullet-points {
-      font-size: 13px;
-      color: #dbeafe;
-      font-weight: 500;
-      display: flex;
-      gap: 12px;
-    }
-
+    .hero-campus-photo-backdrop,
+    .hero-welcome-badge,
+    .hero-main-title,
+    .hero-bullet-points,
     .hero-handwritten-doodle {
+      display: none;
+    }
+
+    /* Hotspot buttons directly over the image action buttons */
+    .hero-hotspots-bar {
       position: absolute;
-      right: 47%;
-      top: 24px;
-      font-family: 'Caveat', cursive;
-      font-size: 17px;
-      color: #ffffff;
-      text-align: right;
-      line-height: 1.25;
-      transform: rotate(-3deg);
-      pointer-events: none;
-      z-index: 2;
+      top: 66.5%;
+      left: 4.3%;
+      display: flex;
+      gap: 1.5%;
+      width: 35%;
+      height: 11%;
+      z-index: 5;
+    }
+
+    .hero-hotspot-link {
+      display: inline-block;
+      height: 100%;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .hero-hotspot-link:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .hero-hotspot-explore {
+      width: 52%;
+    }
+    .hero-hotspot-create {
+      width: 45%;
     }
 
     .hero-search-container {
-      position: relative;
-      max-width: 440px;
-      z-index: 2;
-      margin-top: 2px;
+      position: absolute;
+      bottom: 3.5%;
+      left: 4.3%;
+      width: 34%;
+      max-width: 400px;
+      z-index: 3;
     }
 
     .hero-search-input {
       width: 100%;
-      padding: 12px 44px 12px 18px;
+      padding: 9px 38px 9px 16px;
       border-radius: 999px;
-      border: none;
-      font-size: 13px;
+      border: 1.5px solid rgba(147, 197, 253, 0.85);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 12.5px;
       font-family: inherit;
       outline: none;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
       color: #0f172a;
+      transition: all 0.2s ease;
+    }
+    .hero-search-input:focus {
+      border-color: #2563eb;
+      background: #ffffff;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
     }
 
     .hero-search-icon-btn {
       position: absolute;
-      right: 14px;
+      right: 12px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: #0f172a;
+      color: #2563eb;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1881,28 +1873,22 @@
     <main class="dashboard-main-content">
 
       <!-- HERO BANNER -->
-      <section class="welcome-hero-banner">
-        <div class="hero-campus-photo-backdrop"></div>
-        <div class="hero-text-content">
-          <div class="hero-welcome-badge">Welcome to</div>
-          <h2 class="hero-main-title">MSOT Club Activities</h2>
-          <div class="hero-bullet-points">
-            <span>Join clubs</span> • <span>Build skills</span> • <span>Create memories</span>
-          </div>
-
-          <div class="hero-search-container">
-            <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search for clubs, events, or activities..." oninput="handleSearch(this.value)" autocomplete="off" />
-            <button class="hero-search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear search" style="display: none;">&times;</button>
-            <button class="hero-search-icon-btn" title="Search" onclick="document.getElementById('heroSearchInput').focus()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </button>
-          </div>
-          <div id="searchFeedback" style="display:none; font-size:12px; color:rgba(255,255,255,0.9); margin-top:6px; font-weight:600;"></div>
+      <section class="welcome-hero-banner" role="banner" aria-label="MSOT Club Activities">
+        <!-- Interactive hotspots aligned with the image buttons -->
+        <div class="hero-hotspots-bar">
+          <a href="javascript:void(0)" class="hero-hotspot-link hero-hotspot-explore" onclick="openRegistryModal()" title="Explore Clubs"></a>
+          <a href="javascript:void(0)" class="hero-hotspot-link hero-hotspot-create" onclick="showToast('Club creation is managed by Campus Administrators in the Admin Portal.', 'info')" title="Create Club"></a>
         </div>
 
-        <div class="hero-handwritten-doodle">
-          More Clubs<br>More Opportunities<br>A Better You &#9992;
+        <!-- Campus Search Bar -->
+        <div class="hero-search-container">
+          <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search for clubs, events, or activities..." oninput="handleSearch(this.value)" autocomplete="off" />
+          <button class="hero-search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear search" style="display: none;">&times;</button>
+          <button class="hero-search-icon-btn" title="Search" onclick="document.getElementById('heroSearchInput').focus()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
         </div>
+        <div id="searchFeedback" style="display:none; font-size:12px; color:#1e3a8a; margin-top:6px; font-weight:700;"></div>
       </section>
 
       <!-- FEATURED CLUBS (4 VERIFIED SEED CLUBS) -->
