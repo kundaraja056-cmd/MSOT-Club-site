@@ -9,8 +9,9 @@ from google import genai
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-app = FastAPI()
+api_key = os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=api_key) if api_key else None
+app = FastAPI(title="MSOT Club Activities & Management API")
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,14 +28,14 @@ def init_db():
     conn = sqlite3.connect("club_chat.db")
     cursor = conn.cursor()
     
-    # 1. Users table with 4 distinct roles
+    # 1. Users table with institutional roles
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             identifier TEXT UNIQUE NOT NULL,
             name TEXT NOT NULL,
             password_hash TEXT NOT NULL,
-            role TEXT CHECK(role IN ('president', 'vp', 'faculty', 'student')) NOT NULL
+            role TEXT CHECK(role IN ('committee', 'president', 'vp', 'faculty', 'student', 'admin')) NOT NULL
         )
     """)
 
@@ -54,6 +55,7 @@ def init_db():
     cursor.execute("SELECT COUNT(*) FROM users")
     if cursor.fetchone()[0] == 0:
         default_users = [
+            ("committee@msot.edu", "Club Committee (President & VP)", hash_password("admin123"), "committee"),
             ("president@msot.edu", "Club President", hash_password("admin123"), "president"),
             ("vp@msot.edu", "Club Vice President", hash_password("vp123"), "vp"),
             ("faculty@msot.edu", "Prof. Mentor", hash_password("faculty123"), "faculty"),
@@ -63,7 +65,15 @@ def init_db():
             "INSERT INTO users (identifier, name, password_hash, role) VALUES (?, ?, ?, ?)",
             default_users
         )
-        print("✓ Created test accounts: President, VP, Faculty, Student")
+        print("✓ Created test accounts: Committee, President, VP, Faculty, Student")
+    else:
+        cursor.execute("SELECT id FROM users WHERE identifier = 'committee@msot.edu'")
+        if not cursor.fetchone():
+            cursor.execute(
+                "INSERT OR IGNORE INTO users (identifier, name, password_hash, role) VALUES (?, ?, ?, ?)",
+                ("committee@msot.edu", "Club Committee (President & VP)", hash_password("admin123"), "committee")
+            )
+            print("✓ Seeded merged Club Committee account (committee@msot.edu)")
 
     conn.commit()
     conn.close()
@@ -106,11 +116,17 @@ def login(data: LoginRequest):
 
 @app.post("/api/chat")
 def handle_chat(req: PromptRequest):
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=req.prompt
-    )
-    bot_reply = response.text
+    if not client:
+        bot_reply = "MSOT Club Assistant: I'm active and ready to help! To enable live Gemini generative answers, set your GEMINI_API_KEY in .env."
+    else:
+        try:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=req.prompt
+            )
+            bot_reply = response.text
+        except Exception as e:
+            bot_reply = f"MSOT Assistant Error: {str(e)}"
 
     conn = sqlite3.connect("club_chat.db")
     cursor = conn.cursor()

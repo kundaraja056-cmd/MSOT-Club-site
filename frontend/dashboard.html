@@ -49,33 +49,71 @@
     }
 
     /* =========================================================
-       1. TOP NAVBAR
+       1. FLOATING PILL-SHAPED NAVBAR (ANIMATION DESIGN)
        ========================================================= */
-    .top-navbar {
-      background: var(--primary-blue);
-      color: #ffffff;
-      height: 64px;
-      padding: 0 28px;
+    .floating-nav-container {
+      position: sticky;
+      top: 14px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      padding: 0 24px;
+      margin-bottom: 6px;
+      opacity: 0;
+      transform: translateY(-16px);
+      animation: navEntrance 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 80ms;
+    }
+
+    @keyframes navEntrance {
+      0% { opacity: 0; transform: translateY(-16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .pill-navbar {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      border-radius: 9999px;
+      box-shadow: 0 16px 38px -10px rgba(15, 23, 42, 0.12), 0 4px 14px rgba(0, 0, 0, 0.04);
+      padding: 8px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 2px 10px rgba(0, 40, 120, 0.15);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      gap: 16px;
+      width: 100%;
+      max-width: 1480px;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .brand-container {
+    body.dark-theme .pill-navbar {
+      background: rgba(17, 24, 39, 0.9);
+      border-color: rgba(31, 41, 55, 0.95);
+      box-shadow: 0 16px 38px -10px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand-mark {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
       text-decoration: none;
-      color: #ffffff;
+      color: var(--text-main);
     }
 
-    .brand-flower-icon {
-      width: 32px;
-      height: 32px;
+    .brand-logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
       flex-shrink: 0;
     }
 
@@ -84,105 +122,373 @@
       flex-direction: column;
     }
 
-    .brand-title {
-      font-size: 19px;
+    .brand-title-text {
       font-weight: 800;
-      letter-spacing: -0.2px;
-      line-height: 1.1;
+      font-size: 16px;
+      color: var(--text-main);
+      letter-spacing: -0.3px;
+      line-height: 1.15;
     }
 
-    .brand-subtitle {
-      font-size: 11px;
-      color: #bfdbfe;
-      font-weight: 500;
+    .brand-subtitle-text {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 600;
       letter-spacing: 0.2px;
     }
 
-    .nav-menu-list {
+    .navbar-right-cluster {
       display: flex;
       align-items: center;
-      gap: 6px;
-      list-style: none;
+      gap: 10px;
+      position: relative;
     }
 
-    .nav-menu-item {
-      display: inline-block;
-    }
-
-    .nav-link {
-      display: flex;
+    .pill-announcements-btn {
+      display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 8px 16px;
-      border-radius: 8px;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 13.5px;
-      font-weight: 600;
-      transition: background 0.18s ease;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .pill-announcements-btn:hover, .pill-announcements-btn.active {
+      background: #dbeafe;
+      border-color: #93c5fd;
+      transform: translateY(-1px);
+    }
+    body.dark-theme .pill-announcements-btn {
+      background: rgba(30, 58, 138, 0.35);
+      border-color: rgba(96, 165, 250, 0.3);
+      color: #93c5fd;
     }
 
-    .nav-link:hover {
-      background: rgba(255, 255, 255, 0.16);
+    .nav-badge-dot {
+      width: 7px;
+      height: 7px;
+      background: #38bdf8;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #38bdf8;
     }
 
-    .nav-link.active-nav-link {
-      background: rgba(255, 255, 255, 0.22);
-      box-shadow: inset 0 -2px 0 #ffffff;
+    .pill-notif-btn {
+      position: relative;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .pill-notif-btn:hover, .pill-notif-btn.active {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+    body.dark-theme .pill-notif-btn {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
+    }
+    body.dark-theme .pill-notif-btn:hover {
+      background: #334155;
     }
 
     .nav-badge-pill {
+      position: absolute;
+      top: -3px;
+      right: -3px;
       background: #ef4444;
       color: white;
       font-size: 10px;
       font-weight: 800;
       border-radius: 999px;
       padding: 1px 6px;
-      margin-left: 2px;
+      line-height: 1.2;
+      border: 2px solid #ffffff;
+    }
+    body.dark-theme .nav-badge-pill {
+      border-color: #111827;
     }
 
-    .user-profile-widget {
+    .status-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #047857;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 11px;
+      border-radius: 9999px;
+      letter-spacing: 0.2px;
+    }
+    body.dark-theme .status-pill-badge {
+      background: rgba(6, 78, 59, 0.35);
+      border-color: rgba(52, 211, 153, 0.3);
+      color: #6ee7b7;
+    }
+    .status-pulse-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseGreen 2s infinite ease-in-out;
+    }
+    @keyframes pulseGreen {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.6; }
+    }
+
+    .dash-theme-toggle-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
       cursor: pointer;
-      padding: 5px 10px;
-      border-radius: 10px;
-      transition: background 0.18s ease;
+      transition: all 0.2s ease;
+    }
+    .dash-theme-toggle-btn:hover {
+      background: #f1f5f9;
+      transform: rotate(15deg);
+    }
+    body.dark-theme .dash-theme-toggle-btn {
+      background: #1e293b;
+      border-color: #334155;
+      color: #f8fafc;
     }
 
-    .user-profile-widget:hover {
-      background: rgba(255, 255, 255, 0.16);
+    .user-pill-widget {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      padding: 4px 12px 4px 5px;
+      border-radius: 9999px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
     }
-
-    .user-avatar-image {
-      width: 38px;
-      height: 38px;
+    .user-pill-widget:hover, .user-pill-widget.active {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+    body.dark-theme .user-pill-widget {
+      background: #1e293b;
+      border-color: #334155;
+      box-shadow: none;
+    }
+    body.dark-theme .user-pill-widget:hover {
+      background: #334155;
+    }
+    .user-pill-avatar {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      border: 2px solid #ffffff;
       object-fit: cover;
+      border: 1.5px solid #2563eb;
     }
-
-    .user-credentials-block {
-      text-align: left;
-    }
-
-    .user-full-name {
+    .user-pill-name {
       font-size: 13px;
       font-weight: 700;
-      color: #ffffff;
-      line-height: 1.2;
+      color: var(--text-main);
     }
-
-    .user-role-text {
-      font-size: 11px;
-      color: #bfdbfe;
-      font-weight: 500;
+    .user-pill-role {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 2px 7px;
+      border-radius: 999px;
+      letter-spacing: 0.3px;
     }
-
+    body.dark-theme .user-pill-role {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+    }
     .chevron-down-icon {
-      color: #ffffff;
+      color: var(--text-muted);
       opacity: 0.85;
+      transition: transform 0.2s ease;
+    }
+    .user-pill-widget.active .chevron-down-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Flyout Dropdown Panels from Top Navbar */
+    .nav-dropdown-flyout {
+      position: absolute;
+      top: 50px;
+      background: var(--bg-white);
+      color: var(--text-main);
+      border-radius: 16px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-card);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: navFlyoutIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #announcementsDropdown {
+      right: 130px;
+      width: 380px;
+      max-width: calc(100vw - 32px);
+    }
+    #notificationsDropdown {
+      right: 90px;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+    }
+    #profileDropdown {
+      right: 0;
+      width: 280px;
+      max-width: calc(100vw - 32px);
+    }
+    @media (max-width: 680px) {
+      #announcementsDropdown,
+      #notificationsDropdown,
+      #profileDropdown {
+        right: 0;
+        left: auto;
+        width: 300px;
+      }
+    }
+    .nav-dropdown-flyout.show {
+      display: flex;
+    }
+    @keyframes navFlyoutIn {
+      from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .dropdown-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-soft);
+      background: #f8fafc;
+    }
+    body.dark-theme .dropdown-header-bar {
+      background: #1e293b;
+      border-color: #334155;
+    }
+
+    .dropdown-header-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .dropdown-items-list {
+      display: flex;
+      flex-direction: column;
+      max-height: 340px;
+      overflow-y: auto;
+    }
+
+    .dropdown-list-item {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border-card);
+      transition: background 0.15s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .dropdown-list-item:hover {
+      background: #f1f5f9;
+    }
+    body.dark-theme .dropdown-list-item:hover {
+      background: #1e293b;
+    }
+    .dropdown-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-tag-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .tag-announcement { background: #e0f2fe; color: #0369a1; }
+    .tag-notif-urgent { background: #fee2e2; color: #b91c1c; }
+    .tag-notif-success { background: #dcfce7; color: #15803d; }
+    .tag-notif-info { background: #e0e7ff; color: #4338ca; }
+
+    .dropdown-footer-link {
+      padding: 11px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      border-top: 1px solid var(--border-soft);
+      background: #f8fafc;
+      transition: background 0.15s;
+    }
+    .dropdown-footer-link:hover {
+      background: #e2e8f0;
+    }
+    body.dark-theme .dropdown-footer-link {
+      background: #1e293b;
+      border-color: #334155;
+      color: #60a5fa;
+    }
+
+    /* Sidebar Group Title */
+    .sidebar-group-title {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--text-light);
+      text-transform: uppercase;
+      padding: 10px 14px 4px;
+    }
+    .sidebar-badge-count {
+      background: #e2e8f0;
+      color: #334155;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 1px 7px;
+    }
+    body.dark-theme .sidebar-badge-count {
+      background: #334155;
+      color: #e2e8f0;
     }
 
     /* =========================================================
@@ -366,13 +672,13 @@
       right: 0;
       top: 0;
       height: 100%;
-      width: 52%;
-      background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&auto=format&fit=crop&q=80');
+      width: 60%;
+      background-image: url('assets/college-club-hero.jpg');
       background-size: cover;
-      background-position: center;
-      opacity: 0.9;
-      mask-image: linear-gradient(to right, transparent 0%, black 45%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%);
+      background-position: right center;
+      opacity: 0.95;
+      mask-image: linear-gradient(to right, transparent 0%, black 35%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%);
       pointer-events: none;
     }
 
@@ -996,72 +1302,457 @@
       .hero-campus-photo-backdrop { display: none; }
       .hero-handwritten-doodle { display: none; }
     }
+
+    /* =========================================================
+       DARK THEME OVERRIDES
+       ========================================================= */
+    body.dark-theme {
+      --bg-canvas: #090d16;
+      --bg-white: #111827;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-light: #64748b;
+      --border-soft: #1e293b;
+      --border-card: #1f2937;
+    }
+    body.dark-theme .top-navbar {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+    }
+    body.dark-theme .sidebar-navigation-card,
+    body.dark-theme .campus-selector-box,
+    body.dark-theme .motivation-card-widget,
+    body.dark-theme .club-card,
+    body.dark-theme .event-card,
+    body.dark-theme .club-modal-card {
+      background: #111827;
+      border-color: #1e293b;
+      color: #f8fafc;
+    }
+    body.dark-theme .sidebar-nav-item {
+      color: #94a3b8;
+    }
+    body.dark-theme .sidebar-nav-item:hover {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+    body.dark-theme .sidebar-nav-item.active-sidebar-item {
+      background: rgba(37, 99, 235, 0.2);
+      color: #60a5fa;
+    }
+    body.dark-theme .club-title,
+    body.dark-theme .event-headline-title,
+    body.dark-theme .modal-club-title,
+    body.dark-theme .section-headline {
+      color: #f8fafc;
+    }
+    body.dark-theme .club-tagline,
+    body.dark-theme .action-text-wrap p {
+      color: #94a3b8;
+    }
+    body.dark-theme .action-card {
+      background: #1e293b;
+      border-color: #334155;
+    }
+    body.dark-theme .action-text-wrap h4 {
+      color: #f8fafc;
+    }
+    body.dark-theme .form-input,
+    body.dark-theme .hero-search-input {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #334155;
+    }
+
+    /* Navbar Theme Button */
+    .nav-theme-btn {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+    .nav-theme-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    /* Search Clear Button */
+    .hero-search-clear-btn {
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 19px;
+      color: #64748b;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+    .hero-search-clear-btn:hover {
+      color: #0f172a;
+    }
+    body.dark-theme .hero-search-clear-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Toast Notification System */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .toast-item {
+      pointer-events: auto;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      animation: toastSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 380px;
+    }
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .toast-success { border-left: 4px solid #10b981; }
+    .toast-info { border-left: 4px solid #3b82f6; }
+    .toast-warning { border-left: 4px solid #f59e0b; }
+
+    /* Interactive AI Assistant Drawer */
+    .ai-chat-drawer {
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 370px;
+      height: 500px;
+      background: var(--bg-white);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+      display: flex;
+      flex-direction: column;
+      z-index: 10000;
+      overflow: hidden;
+      animation: aiDrawerIn 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes aiDrawerIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .ai-chat-header {
+      background: var(--primary-gradient);
+      color: #ffffff;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ai-chat-close-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #ffffff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .ai-chat-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg-canvas);
+    }
+    .ai-msg {
+      max-width: 82%;
+      padding: 9px 13px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .ai-msg-bot {
+      align-self: flex-start;
+      background: var(--bg-white);
+      color: var(--text-main);
+      border: 1px solid var(--border-soft);
+      border-bottom-left-radius: 4px;
+    }
+    .ai-msg-user {
+      align-self: flex-end;
+      background: var(--primary-blue);
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+    }
+    .ai-prompt-chips {
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      overflow-x: auto;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-soft);
+      scrollbar-width: none;
+    }
+    .ai-prompt-chips::-webkit-scrollbar { display: none; }
+    .ai-chip {
+      white-space: nowrap;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-soft);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ai-chip:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: #0284c7;
+    }
+    .ai-chat-input-bar {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border-soft);
+    }
+    .ai-chat-input-bar input {
+      flex: 1;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-family: inherit;
+      outline: none;
+      background: var(--bg-canvas);
+      color: var(--text-main);
+    }
+    .ai-chat-input-bar button {
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 0 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ai-chat-input-bar button:hover {
+      background: var(--primary-blue-dark);
+    }
   </style>
 </head>
 <body>
 
   <!-- =======================================================
-       TOP NAVBAR
+       1. FLOATING PILL-SHAPED NAVBAR (ANIMATION DESIGN)
        ======================================================= -->
-  <header class="top-navbar">
-    <a href="#" class="brand-container">
-      <svg class="brand-flower-icon" viewBox="0 0 24 24">
-        <path d="M12 2C12 2 7 7 7 13C7 16.87 10.13 20 14 20C17.87 20 21 16.87 21 13C21 7 12 2 12 2Z" fill="#bae6fd" opacity="0.6"/>
-        <path d="M12 2C12 2 17 7 17 13C17 16.87 13.87 20 10 20C6.13 20 3 16.87 3 13C3 7 12 2 12 2Z" fill="#38bdf8"/>
-        <path d="M12 5C12 5 9 9 9 14C9 17.31 10.69 20 12 22C13.31 20 15 17.31 15 14C15 9 12 5 12 5Z" fill="#ffffff"/>
-      </svg>
-      <div class="brand-text-block">
-        <h1 class="brand-title">MSOT</h1>
-        <span class="brand-subtitle">Club Activities</span>
-      </div>
-    </a>
+  <div class="floating-nav-container">
+    <nav class="pill-navbar" aria-label="Main Navigation">
+      <!-- Brand Mark -->
+      <a href="dashboard.html" class="brand-mark" title="MSOT Club Activities">
+        <div class="brand-logo-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-title-text">MSOT <span style="font-weight: 500; opacity: 0.85;">Clubs</span></span>
+          <span class="brand-subtitle-text">Activities Tracker</span>
+        </div>
+      </a>
 
-    <nav class="nav-menu-bar">
-      <ul class="nav-menu-list">
-        <li class="nav-menu-item">
-          <a href="#" class="nav-link active-nav-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            Home
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Clubs
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            Club Registry
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-            Events
-          </a>
-        </li>
-        <li class="nav-menu-item">
-          <a href="#" class="nav-link">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            Notifications
-            <span class="nav-badge-pill">3</span>
-          </a>
-        </li>
-      </ul>
+      <!-- Minimal 3 Functional Elements (+ Status beacon + Theme Switcher) -->
+      <div class="navbar-right-cluster">
+        <!-- 1. Announcements -->
+        <button class="pill-announcements-btn" id="announcementsToggleBtn" onclick="toggleAnnouncementsPanel(event)" title="Official Campus & Club Announcements" aria-label="Announcements">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8a6 6 0 0 0-9.33-5M21 15v-2a3 3 0 0 0-3-3H6l-4 4v2h16a3 3 0 0 0 3-3z"/>
+            <path d="M11 19a3 3 0 0 1-6 0"/>
+          </svg>
+          <span>Announcements</span>
+          <span class="nav-badge-dot"></span>
+        </button>
+
+        <!-- 2. Notifications Icon -->
+        <button class="pill-notif-btn" id="notificationsToggleBtn" onclick="toggleNotificationsPanel(event)" title="Notifications" aria-label="Notifications">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="nav-badge-pill" id="notifBadge">3</span>
+        </button>
+
+        <!-- Active Term Status Beacon -->
+        <div class="status-pill-badge" title="Academic Term Status">
+          <span class="status-pulse-dot"></span>
+          <span>Active Term</span>
+        </div>
+
+        <!-- Theme Switcher -->
+        <button class="dash-theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Theme" aria-label="Toggle Theme">
+          <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- 3. Profile Section with Dropdown Trigger -->
+        <div class="user-pill-widget" id="userProfileWidget" onclick="toggleProfileDropdown(event)" title="Student Profile & Settings" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-pill-avatar" id="navUserAvatar" />
+          <span class="user-pill-name" id="userNameLabel">Priyanshu</span>
+          <span class="user-pill-role" id="userRoleLabel">Student</span>
+          <svg class="chevron-down-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <!-- Announcements Flyout Dropdown -->
+        <div class="nav-dropdown-flyout" id="announcementsDropdown" onclick="event.stopPropagation()">
+          <div class="dropdown-header-bar">
+            <span class="dropdown-header-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M18 8a6 6 0 0 0-9.33-5M21 15v-2a3 3 0 0 0-3-3H6l-4 4v2h16a3 3 0 0 0 3-3z"/><path d="M11 19a3 3 0 0 1-6 0"/></svg>
+              Campus Announcements
+            </span>
+            <span style="font-size: 11px; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 999px; font-weight: 700;">Official</span>
+          </div>
+          <div class="dropdown-items-list">
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-announcement">CodeConnect</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Cloud Architecture Workshop with Mentor Harsh Bhaiya</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">Hands-on microservices session this Friday at 4:00 PM in Tech Lab 3B. RSVP open.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">Yesterday • Club Leadership</div>
+            </div>
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-announcement">Nexcell</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Venture Ideathon: Student Pitch Deck Submission Open</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">President Rudra announced seed grant funding for top 3 tech prototypes.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">2 days ago • Entrepreneurship Cell</div>
+            </div>
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-announcement">Sports Club</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Inter-College Sports Tournament Trials</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">President Astithwa & VP Piyush Tripathi will lead athlete selection at Main Field.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">3 days ago • Sports Council</div>
+            </div>
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-announcement">TechnoTribe</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Annual Cultural Showcase Auditions</div>
+              <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">Auditions for stage drama, acoustics, and dance curated by Sathwik Satya & Syed Sir.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">4 days ago • Cultural Board</div>
+            </div>
+          </div>
+          <a href="javascript:void(0)" class="dropdown-footer-link" onclick="toggleAnnouncementsPanel(); showToast('Viewing all official campus circulars.', 'info');">View All Campus Notices &rarr;</a>
+        </div>
+
+        <!-- Notifications Flyout Dropdown -->
+        <div class="nav-dropdown-flyout" id="notificationsDropdown" onclick="event.stopPropagation()">
+          <div class="dropdown-header-bar">
+            <span class="dropdown-header-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Notifications (<span id="notifCountText">3</span>)
+            </span>
+            <button style="background: none; border: none; color: var(--primary-blue); font-size: 11px; font-weight: 700; cursor: pointer;" onclick="clearAllNotifications()">Mark all read</button>
+          </div>
+          <div class="dropdown-items-list" id="notifItemsList">
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-notif-success">&#10003; Attendance Verified</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Attendance recorded for CodeConnect Workshop</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Session token MSOT-4491 confirmed by Coordinator.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">2 hours ago</div>
+            </div>
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-notif-urgent">&#9888; Task Deliverable</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">TechnoTribe Stage Theme Proposal Due</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Submission deadline: Tomorrow at 11:59 PM.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">Yesterday</div>
+            </div>
+            <div class="dropdown-list-item">
+              <span class="item-tag-pill tag-notif-info">&#127942; Credential Issued</span>
+              <div style="font-weight: 700; font-size: 13px; margin-bottom: 2px;">Certificate of Participation Ready</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Your verified credential for Spring Hackathon has been published.</div>
+              <div style="font-size: 10.5px; color: var(--text-light); margin-top: 4px;">3 days ago</div>
+            </div>
+          </div>
+          <a href="javascript:void(0)" class="dropdown-footer-link" onclick="openCertificatesModal()">View My Records & Credentials &rarr;</a>
+        </div>
+
+        <!-- Profile Flyout Dropdown -->
+        <div class="nav-dropdown-flyout" id="profileDropdown" onclick="event.stopPropagation()">
+          <div style="padding: 16px 18px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: center; gap: 12px; background: #f8fafc;">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-blue);" />
+            <div>
+              <div style="font-weight: 800; font-size: 14px;" id="dropdownUserName">Priyanshu</div>
+              <div style="font-size: 12px; color: var(--text-muted);" id="dropdownUserEmail">student@msot.edu</div>
+              <span style="display: inline-block; margin-top: 3px; font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0369a1; padding: 1px 7px; border-radius: 999px;" id="dropdownUserRole">🎓 STUDENT PORTAL</span>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; padding: 6px 0;">
+            <a href="javascript:void(0)" class="dropdown-list-item" onclick="toggleProfileDropdown(); openMyClubsModal();" style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              My Clubs
+            </a>
+            <a href="javascript:void(0)" class="dropdown-list-item" onclick="toggleProfileDropdown(); openSubmissionsModal();" style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Activities & Submissions
+            </a>
+            <a href="javascript:void(0)" class="dropdown-list-item" onclick="toggleProfileDropdown(); openAttendanceModal();" style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Attendance History
+            </a>
+            <a href="javascript:void(0)" class="dropdown-list-item" onclick="toggleProfileDropdown(); openCertificatesModal();" style="display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+              Certificates & Evaluations
+            </a>
+          </div>
+          
+          <!-- Quick Role Switcher for Testing / Review -->
+          <div style="padding: 10px 14px; background: var(--bg-canvas); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);">
+            <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Switch Demo Persona:</div>
+            <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+              <button type="button" class="ai-chip" onclick="switchDemoUser('student')">Student</button>
+              <button type="button" class="ai-chip" onclick="switchDemoUser('committee')">Club Committee (Pres & VP)</button>
+              <button type="button" class="ai-chip" onclick="switchDemoUser('faculty')">Faculty</button>
+            </div>
+          </div>
+
+          <div style="padding: 8px 12px;">
+            <button onclick="handleUserLogout()" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 9px; background: #fee2e2; color: #dc2626; border: none; border-radius: 8px; font-weight: 700; font-size: 12.5px; cursor: pointer; transition: background 0.15s;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
     </nav>
-
-    <!-- User Profile Dropdown -->
-    <div class="user-profile-widget" onclick="handleUserLogout()" title="Click to Sign Out">
-      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-avatar-image" />
-      <div class="user-credentials-block">
-        <div class="user-full-name" id="userNameLabel">Aarav Sharma</div>
-        <div class="user-role-text" id="userRoleLabel">Student</div>
-      </div>
-      <svg class="chevron-down-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-  </header>
+  </div>
 
   <!-- =======================================================
        MAIN CONTAINER
@@ -1071,72 +1762,86 @@
     <!-- LEFT SIDEBAR -->
     <aside class="sidebar-wrapper">
       <div class="sidebar-navigation-card">
-        <a href="#" class="sidebar-nav-item active-sidebar-item">
+        <!-- OVERVIEW -->
+        <div class="sidebar-group-title">Overview</div>
+        <a href="dashboard.html" class="sidebar-nav-item active-sidebar-item">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-            Home
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Dashboard
           </div>
         </a>
-        <a href="#" class="sidebar-nav-item">
+
+        <!-- DISCOVER -->
+        <div class="sidebar-group-title">Discover</div>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openRegistryModal()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            My Profile
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Explore Clubs
           </div>
         </a>
-        <a href="#" class="sidebar-nav-item">
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openMyClubsModal()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-            Participation
-          </div>
-        </a>
-        <a href="#" class="sidebar-nav-item">
-          <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             My Clubs
           </div>
+          <span class="sidebar-badge-count">2</span>
         </a>
-        <a href="#" class="sidebar-nav-item">
+
+        <!-- ACTIVITIES -->
+        <div class="sidebar-group-title">Activities</div>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="scrollToEvents()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-            Clubs
-          </div>
-          <span class="sidebar-arrow-chevron">&rsaquo;</span>
-        </a>
-        <a href="#" class="sidebar-nav-item">
-          <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Events
-          </div>
-        </a>
-        <a href="#" class="sidebar-nav-item">
-          <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Calendar
           </div>
         </a>
-        <a href="#" class="sidebar-nav-item">
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openSubmissionsModal()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Submissions
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Activities & Submissions
+          </div>
+          <span class="sidebar-badge">1 Due</span>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openAttendanceModal()">
+          <div class="sidebar-nav-item-left">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Attendance
           </div>
         </a>
-        <a href="#" class="sidebar-nav-item">
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="scrollToEvents()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg>
-            Notifications
-          </div>
-          <span class="sidebar-badge">3</span>
-        </a>
-        <a href="#" class="sidebar-nav-item">
-          <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            Leave Request
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            Events & Teams
           </div>
         </a>
-        <a href="#" class="sidebar-nav-item">
+
+        <!-- MY RECORDS -->
+        <div class="sidebar-group-title">My Records</div>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openEvaluationsModal()">
           <div class="sidebar-nav-item-left">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-            Settings
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            Evaluations
+          </div>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openCertificatesModal()">
+          <div class="sidebar-nav-item-left">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Certificates
+          </div>
+        </a>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openTranscriptModal()">
+          <div class="sidebar-nav-item-left">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Participation Transcript
+          </div>
+        </a>
+
+        <!-- COMMUNITY -->
+        <div class="sidebar-group-title">Community</div>
+        <a href="javascript:void(0)" class="sidebar-nav-item" onclick="openGalleryModal()">
+          <div class="sidebar-nav-item-left">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Published Event Gallery
           </div>
         </a>
       </div>
@@ -1186,11 +1891,13 @@
           </div>
 
           <div class="hero-search-container">
-            <input type="text" class="hero-search-input" placeholder="Search for clubs, events, or activities..." />
-            <button class="hero-search-icon-btn" title="Search">
+            <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search for clubs, events, or activities..." oninput="handleSearch(this.value)" autocomplete="off" />
+            <button class="hero-search-clear-btn" id="searchClearBtn" onclick="clearSearch()" title="Clear search" style="display: none;">&times;</button>
+            <button class="hero-search-icon-btn" title="Search" onclick="document.getElementById('heroSearchInput').focus()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </button>
           </div>
+          <div id="searchFeedback" style="display:none; font-size:12px; color:rgba(255,255,255,0.9); margin-top:6px; font-weight:600;"></div>
         </div>
 
         <div class="hero-handwritten-doodle">
@@ -1198,47 +1905,47 @@
         </div>
       </section>
 
-      <!-- FEATURED CLUBS (4 CARDS) -->
-      <section class="featured-clubs-section">
+      <!-- FEATURED CLUBS (4 VERIFIED SEED CLUBS) -->
+      <section class="featured-clubs-section" id="featuredClubs">
         <div class="section-header-row">
-          <h3 class="section-headline">Featured Clubs</h3>
-          <a href="#" class="section-action-link">View All &rarr;</a>
+          <h3 class="section-headline">Verified Campus Clubs</h3>
+          <a href="javascript:void(0)" class="section-action-link" onclick="openRegistryModal()">View All Directory &rarr;</a>
         </div>
 
         <div class="featured-clubs-grid">
-          <!-- Club 1: Coding -->
-          <div class="club-card" data-club-id="coding" onclick="openClubModal('coding')">
+          <!-- Club 1: CodeConnect -->
+          <div class="club-card" data-club-id="codeconnect" onclick="openClubModal('codeconnect')">
             <div class="club-image-box">
-              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop&q=80" alt="Coding Club" class="club-banner-image" />
-              <span class="club-category-pill category-coding">Tech & Coding</span>
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500&auto=format&fit=crop&q=80" alt="CodeConnect" class="club-banner-image" />
+              <span class="club-category-pill category-coding">Coding & Tech</span>
             </div>
             <div class="club-info-body">
-              <h4 class="club-title">Coding Club</h4>
-              <p class="club-tagline">Explore, Build, Innovate</p>
+              <h4 class="club-title">CodeConnect</h4>
+              <p class="club-tagline">Committee: Sia Charan (Pres) &amp; Akshara (VP)</p>
               <div class="club-footer-row">
-                <span class="club-members-count">&#128101; 120 Members</span>
-                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('coding')">Join Club &rarr;</button>
+                <span class="club-members-count">&#128101; 142 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('codeconnect')">Explore &rarr;</button>
               </div>
             </div>
           </div>
 
-          <!-- Club 2: Arts -->
-          <div class="club-card" data-club-id="arts" onclick="openClubModal('arts')">
+          <!-- Club 2: Nexcell -->
+          <div class="club-card" data-club-id="nexcell" onclick="openClubModal('nexcell')">
             <div class="club-image-box">
-              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&auto=format&fit=crop&q=80" alt="Creative Arts" class="club-banner-image" />
-              <span class="club-category-pill category-arts">Art & Culture</span>
+              <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&auto=format&fit=crop&q=80" alt="Nexcell" class="club-banner-image" />
+              <span class="club-category-pill category-innovation" style="background:#e0e7ff; color:#4338ca;">Innovation</span>
             </div>
             <div class="club-info-body">
-              <h4 class="club-title">Creative Arts Club</h4>
-              <p class="club-tagline">Express Your Creativity</p>
+              <h4 class="club-title">Nexcell</h4>
+              <p class="club-tagline">Committee: Rudra (President)</p>
               <div class="club-footer-row">
-                <span class="club-members-count">&#128101; 95 Members</span>
-                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('arts')">Join Club &rarr;</button>
+                <span class="club-members-count">&#128101; 88 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('nexcell')">Explore &rarr;</button>
               </div>
             </div>
           </div>
 
-          <!-- Club 3: Sports -->
+          <!-- Club 3: Sports Club -->
           <div class="club-card" data-club-id="sports" onclick="openClubModal('sports')">
             <div class="club-image-box">
               <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&auto=format&fit=crop&q=80" alt="Sports Club" class="club-banner-image" />
@@ -1246,86 +1953,86 @@
             </div>
             <div class="club-info-body">
               <h4 class="club-title">Sports Club</h4>
-              <p class="club-tagline">Play • Compete • Grow</p>
+              <p class="club-tagline">Committee: Astithwa (Pres) &amp; Piyush (VP)</p>
               <div class="club-footer-row">
-                <span class="club-members-count">&#128101; 150 Members</span>
-                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('sports')">Join Club &rarr;</button>
+                <span class="club-members-count">&#128101; 165 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('sports')">Explore &rarr;</button>
               </div>
             </div>
           </div>
 
-          <!-- Club 4: Green Earth -->
-          <div class="club-card" data-club-id="green" onclick="openClubModal('green')">
+          <!-- Club 4: TechnoTribe -->
+          <div class="club-card" data-club-id="technotribe" onclick="openClubModal('technotribe')">
             <div class="club-image-box">
-              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=80" alt="Green Earth" class="club-banner-image" />
-              <span class="club-category-pill category-green">Environment</span>
+              <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&auto=format&fit=crop&q=80" alt="TechnoTribe" class="club-banner-image" />
+              <span class="club-category-pill category-arts">Creative Arts</span>
             </div>
             <div class="club-info-body">
-              <h4 class="club-title">Green Earth Club</h4>
-              <p class="club-tagline">Save Nature • Save Future</p>
+              <h4 class="club-title">TechnoTribe</h4>
+              <p class="club-tagline">Committee: Sathwik (Pres) &amp; Deepu (VP)</p>
               <div class="club-footer-row">
-                <span class="club-members-count">&#128101; 80 Members</span>
-                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('green')">Join Club &rarr;</button>
+                <span class="club-members-count">&#128101; 110 Members</span>
+                <button class="join-club-button" onclick="event.stopPropagation(); openClubModal('technotribe')">Explore &rarr;</button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 4 QUICK ACTION TILES (MATCHING SCREENSHOT) -->
+      <!-- 4 STUDENT QUICK ACTION TILES (NO CREATE CLUB, FULLY WORKING MODALS) -->
       <section class="quick-actions-section">
         <div class="quick-actions-grid">
-          <!-- 1: Create a New Club -->
-          <a href="javascript:void(0)" class="action-card action-create-club" onclick="alert('Club creation request submitted to Faculty Mentor!')">
+          <!-- 1: Explore Clubs -->
+          <a href="javascript:void(0)" class="action-card action-apply-club" onclick="openRegistryModal()">
             <div class="action-card-left">
               <div class="action-icon-circle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </div>
               <div class="action-text-wrap">
-                <h4>Create a New Club</h4>
-                <p>Start your own club and bring your ideas to life.</p>
+                <h4>Explore Clubs</h4>
+                <p>Browse campus directory & request membership.</p>
               </div>
             </div>
             <span class="action-arrow-indicator">&rarr;</span>
           </a>
 
-          <!-- 2: Apply to a Club -->
-          <a href="javascript:void(0)" class="action-card action-apply-club" onclick="openClubModal('coding')">
+          <!-- 2: Attendance Check-in -->
+          <a href="javascript:void(0)" class="action-card action-create-club" onclick="openAttendanceModal()">
             <div class="action-card-left">
               <div class="action-icon-circle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
               </div>
               <div class="action-text-wrap">
-                <h4>Apply to a Club</h4>
-                <p>Be a part of something great!</p>
+                <h4>Check-in Attendance</h4>
+                <p>Scan campus QR or enter one-time session code.</p>
               </div>
             </div>
             <span class="action-arrow-indicator">&rarr;</span>
           </a>
 
-          <!-- 3: Club Events -->
-          <a href="javascript:void(0)" class="action-card action-club-events" onclick="alert('Viewing Upcoming Club Events Schedule.')">
+          <!-- 3: Submissions & Activities -->
+          <a href="javascript:void(0)" class="action-card action-club-events" onclick="openSubmissionsModal()">
             <div class="action-card-left">
               <div class="action-icon-circle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
               </div>
               <div class="action-text-wrap">
-                <h4>Club Events</h4>
-                <p>Explore upcoming events & activities.</p>
+                <h4>My Submissions</h4>
+                <p>Submit assignments, deliverables & deadlines.</p>
               </div>
             </div>
             <span class="action-arrow-indicator">&rarr;</span>
           </a>
 
-          <!-- 4: Club Registry -->
-          <a href="javascript:void(0)" class="action-card action-club-registry" onclick="alert('Access Restricted: Club Registry is available for Campus Managers & Faculty only.')">
+          <!-- 4: Certificates & Evaluations -->
+          <a href="javascript:void(0)" class="action-card action-club-registry" onclick="openCertificatesModal()">
             <div class="action-card-left">
               <div class="action-icon-circle">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
               </div>
               <div class="action-text-wrap">
-                <h4>Club Registry</h4>
-                <p>For Campus Managers Only</p>
+                <h4>Certificates & Transcript</h4>
+                <p>View rubric scores and download credentials.</p>
               </div>
             </div>
             <span class="action-arrow-indicator">&rarr;</span>
@@ -1333,79 +2040,79 @@
         </div>
       </section>
 
-      <!-- UPCOMING EVENTS (4 CARDS) -->
+      <!-- UPCOMING EVENTS (4 VERIFIED CLUBS) -->
       <section class="upcoming-events-section">
         <div class="section-header-row">
-          <h3 class="section-headline">Upcoming Events</h3>
-          <a href="#" class="section-action-link">View Calendar &rarr;</a>
+          <h3 class="section-headline">Upcoming Activities & Events</h3>
+          <a href="javascript:void(0)" class="section-action-link" onclick="showToast('Upcoming semester calendar is synced.', 'info')">View Calendar &rarr;</a>
         </div>
 
         <div class="upcoming-events-grid">
-          <!-- Event 1 -->
+          <!-- Event 1: CodeConnect -->
           <div class="event-card">
             <div class="event-media-container">
-              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80" alt="Hackathon" class="event-thumbnail-img" />
+              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80" alt="Hackathon 2026" class="event-thumbnail-img" />
               <div class="event-calendar-badge">
                 <div class="event-date-day">12</div>
                 <div class="event-date-month">Apr</div>
               </div>
             </div>
             <div class="event-details-content">
-              <h4 class="event-headline-title">Hackathon 2026</h4>
-              <div class="event-organizer-tag">Coding Club</div>
+              <h4 class="event-headline-title">Hackathon 2026: AI Sprint</h4>
+              <div class="event-organizer-tag">CodeConnect • Sia Charan</div>
               <div class="event-meta-row">&#128337; 10:00 AM - 04:00 PM</div>
-              <div class="event-meta-row">&#128205; Main Block Auditorium</div>
+              <div class="event-meta-row">&#128205; Tech Lab 3B & Auditorium</div>
             </div>
           </div>
 
-          <!-- Event 2 -->
+          <!-- Event 2: Nexcell -->
           <div class="event-card">
             <div class="event-media-container">
-              <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&auto=format&fit=crop&q=80" alt="Art Exhibition" class="event-thumbnail-img" />
+              <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&auto=format&fit=crop&q=80" alt="Venture Pitch Day" class="event-thumbnail-img" />
               <div class="event-calendar-badge">
                 <div class="event-date-day">15</div>
                 <div class="event-date-month">Apr</div>
               </div>
             </div>
             <div class="event-details-content">
-              <h4 class="event-headline-title">Art Exhibition</h4>
-              <div class="event-organizer-tag">Creative Arts Club</div>
-              <div class="event-meta-row">&#128337; 09:00 AM - 05:00 PM</div>
-              <div class="event-meta-row">&#128205; Cultural Center</div>
+              <h4 class="event-headline-title">Venture Pitch & Ideathon</h4>
+              <div class="event-organizer-tag">Nexcell • Rudra</div>
+              <div class="event-meta-row">&#128337; 02:00 PM - 05:30 PM</div>
+              <div class="event-meta-row">&#128205; Incubation Center 2A</div>
             </div>
           </div>
 
-          <!-- Event 3 -->
+          <!-- Event 3: Sports Club -->
           <div class="event-card">
             <div class="event-media-container">
-              <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&auto=format&fit=crop&q=80" alt="Sports Meet" class="event-thumbnail-img" />
+              <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=500&auto=format&fit=crop&q=80" alt="Sports Championship" class="event-thumbnail-img" />
               <div class="event-calendar-badge">
                 <div class="event-date-day">18</div>
                 <div class="event-date-month">Apr</div>
               </div>
             </div>
             <div class="event-details-content">
-              <h4 class="event-headline-title">Sports Meet</h4>
-              <div class="event-organizer-tag">Sports Club</div>
+              <h4 class="event-headline-title">Inter-College Sports Championship</h4>
+              <div class="event-organizer-tag">Sports Club • Astithwa</div>
               <div class="event-meta-row">&#128337; 08:00 AM - 05:00 PM</div>
-              <div class="event-meta-row">&#128205; Sports Ground</div>
+              <div class="event-meta-row">&#128205; University Main Ground</div>
             </div>
           </div>
 
-          <!-- Event 4 -->
+          <!-- Event 4: TechnoTribe -->
           <div class="event-card">
             <div class="event-media-container">
-              <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&auto=format&fit=crop&q=80" alt="Green Drive" class="event-thumbnail-img" />
+              <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&auto=format&fit=crop&q=80" alt="TechnoTribe Showcase" class="event-thumbnail-img" />
               <div class="event-calendar-badge">
                 <div class="event-date-day">22</div>
                 <div class="event-date-month">Apr</div>
               </div>
             </div>
             <div class="event-details-content">
-              <h4 class="event-headline-title">Green Drive</h4>
-              <div class="event-organizer-tag">Green Earth Club</div>
-              <div class="event-meta-row">&#128337; 10:00 AM - 02:00 PM</div>
-              <div class="event-meta-row">&#128205; Campus Garden</div>
+              <h4 class="event-headline-title">Annual Cultural Fest Showcase</h4>
+              <div class="event-organizer-tag">TechnoTribe • Sathwik Satya</div>
+              <div class="event-meta-row">&#128337; 11:00 AM - 06:00 PM</div>
+              <div class="event-meta-row">&#128205; Cultural Center Amphitheatre</div>
             </div>
           </div>
         </div>
@@ -1439,8 +2146,8 @@
 
         <div class="modal-details-grid">
           <div>
-            <div class="modal-detail-item-title">Club Leads</div>
-            <div id="modalClubLeads" class="modal-detail-item-value">Priyanshu & Team</div>
+            <div class="modal-detail-item-title">Club Committee (Pres &amp; VP)</div>
+            <div id="modalClubLeads" class="modal-detail-item-value">President &amp; Vice President</div>
           </div>
           <div>
             <div class="modal-detail-item-title">Total Members</div>
@@ -1464,23 +2171,501 @@
     </div>
   </div>
 
-  <!-- Floating Ask Club AI Button (Connected to Gemini Backend) -->
-  <button class="floating-ai-tutor-btn" onclick="askClubAITutor()">
-    <span>&#10024;</span> Ask Club AI
+  <!-- Floating Ask Club AI Button -->
+  <button class="floating-ai-tutor-btn" onclick="toggleAIChat()" id="floatingAIBtn">
+    <span>✨</span> Ask Club AI
   </button>
 
+  <!-- Interactive AI Assistant Modal / Drawer -->
+  <div class="ai-chat-drawer" id="aiChatDrawer" style="display: none;">
+    <div class="ai-chat-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 18px;">✨</span>
+        <div>
+          <div style="font-weight: 700; font-size: 14px;">MSOT Club Advisor</div>
+          <div style="font-size: 11px; opacity: 0.85;">Connected to Campus AI</div>
+        </div>
+      </div>
+      <button class="ai-chat-close-btn" onclick="toggleAIChat()">&times;</button>
+    </div>
+
+    <div class="ai-chat-messages" id="aiChatMessages">
+      <div class="ai-msg ai-msg-bot">
+        👋 Hi! I'm your MSOT Club Advisor. Ask me anything about campus clubs, upcoming hackathons, meeting schedules, or activities!
+      </div>
+    </div>
+
+    <div class="ai-prompt-chips">
+      <button class="ai-chip" onclick="sendPrompt('Tell me about Coding Club')">💻 Coding Club</button>
+      <button class="ai-chip" onclick="sendPrompt('When is Hackathon 2026?')">📅 Hackathon Date</button>
+      <button class="ai-chip" onclick="sendPrompt('How can I join Sports Club?')">⚽ Sports Club</button>
+      <button class="ai-chip" onclick="sendPrompt('How do I start a new club?')">🚀 Start a Club</button>
+    </div>
+
+    <form class="ai-chat-input-bar" onsubmit="submitAIChat(event)">
+      <input type="text" id="aiChatInput" placeholder="Ask about clubs, events, meetups..." autocomplete="off" />
+      <button type="submit" id="aiSendBtn">Send</button>
+    </form>
+  </div>
+
   <!-- =======================================================
-       JAVASCRIPT LOGIC
+       INSTITUTIONAL MODALS & SLIDE-OUT DIALOGS
+       ======================================================= -->
+
+  <!-- 1. Official Club Registry Modal (4 Verified Seed Clubs) -->
+  <div class="club-modal-overlay" id="registryModal" onclick="closeRegistryModal(event)">
+    <div class="club-modal-card" style="max-width: 620px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div>
+          <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Official Campus Club Directory</h3>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 2px;">Verified MSOT student clubs, executive leads & faculty mentors.</p>
+        </div>
+        <button class="modal-close-icon-btn" onclick="closeRegistryModal()">&times;</button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 4px;">
+        <!-- CodeConnect -->
+        <div style="padding: 14px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 14.5px; color: var(--text-main);">CodeConnect</span>
+              <span style="background: #e0f2fe; color: #0369a1; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">Coding & Tech</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">
+              Club Committee: <strong>Sia Charan</strong> (President) &bull; <strong>Akshara</strong> (Vice President)
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-light); margin-top: 2px;">
+              Faculty Mentor: <strong>Harsh Bhaiya</strong> • Weekly Lab 3B Meetup
+            </div>
+          </div>
+          <button class="join-club-button" onclick="closeRegistryModal(); openClubModal('codeconnect');">Details &rarr;</button>
+        </div>
+
+        <!-- Nexcell -->
+        <div style="padding: 14px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 14.5px; color: var(--text-main);">Nexcell</span>
+              <span style="background: #ede9fe; color: #6d28d9; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">Innovation</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">
+              Club Committee: <strong>Rudra</strong> (President)
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-light); margin-top: 2px;">
+              Entrepreneurship & Startup Incubation Cell
+            </div>
+          </div>
+          <button class="join-club-button" onclick="closeRegistryModal(); openClubModal('nexcell');">Details &rarr;</button>
+        </div>
+
+        <!-- Sports Club -->
+        <div style="padding: 14px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 14.5px; color: var(--text-main);">Sports Club</span>
+              <span style="background: #dcfce7; color: #15803d; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">Sports</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">
+              Club Committee: <strong>Astithwa</strong> (President) &bull; <strong>Piyush Tripathi</strong> (Vice President)
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-light); margin-top: 2px;">
+              Faculty Mentor: <strong>Aditya Bhaiya</strong> • Campus Athletics & League
+            </div>
+          </div>
+          <button class="join-club-button" onclick="closeRegistryModal(); openClubModal('sports');">Details &rarr;</button>
+        </div>
+
+        <!-- TechnoTribe -->
+        <div style="padding: 14px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-weight: 800; font-size: 14.5px; color: var(--text-main);">TechnoTribe</span>
+              <span style="background: #fce7f3; color: #be185d; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px;">Creative Arts</span>
+            </div>
+            <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 4px;">
+              Club Committee: <strong>Sathwik Satya</strong> (President) &bull; <strong>Deepu</strong> (Vice President)
+            </div>
+            <div style="font-size: 11.5px; color: var(--text-light); margin-top: 2px;">
+              Faculty Mentor: <strong>Syed Sir</strong> • Cultural & Creative Production
+            </div>
+          </div>
+          <button class="join-club-button" onclick="closeRegistryModal(); openClubModal('technotribe');">Details &rarr;</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: right;">
+        <button class="modal-cancel-btn" onclick="closeRegistryModal()">Close Directory</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Attendance Check-in Modal -->
+  <div class="club-modal-overlay" id="attendanceModal" onclick="closeAttendanceModal(event)">
+    <div class="club-modal-card" style="max-width: 500px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Club Attendance Check-In</h3>
+        <button class="modal-close-icon-btn" onclick="closeAttendanceModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+        Enter your session code or scan the campus one-time check-in code during your club activity.
+      </p>
+
+      <form onsubmit="submitAttendanceCode(event)" style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 12px; font-weight: 700; margin-bottom: 6px; color: var(--text-main);">Session Code</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="attendanceSessionInput" class="form-input" placeholder="e.g. MSOT-4491" value="MSOT-4491" required style="flex:1; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border-soft); font-family: inherit; font-size: 13.5px; font-weight: 700; text-transform: uppercase;" />
+          <button type="submit" class="modal-confirm-join-btn" style="flex: 0 0 auto; padding: 10px 20px;">Verify Check-In</button>
+        </div>
+      </form>
+
+      <div style="background: var(--bg-canvas); border-radius: 12px; padding: 14px; border: 1px solid var(--border-soft);">
+        <div style="font-size: 12px; font-weight: 800; color: var(--text-main); margin-bottom: 10px; text-transform: uppercase;">Recent Verified Sessions:</div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12.5px;">
+          <div style="display: flex; justify-content: space-between; color: var(--text-main);">
+            <span>CodeConnect Web Architecture (Lab 3B)</span>
+            <span style="color: #16a34a; font-weight: 700;">✓ Present</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--text-main);">
+            <span>TechnoTribe Production Meetup</span>
+            <span style="color: #16a34a; font-weight: 700;">✓ Present</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--text-muted);">
+            <span>Sports Club Track Conditioning</span>
+            <span style="color: #16a34a; font-weight: 700;">✓ Present</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; text-align: right;">
+        <button class="modal-cancel-btn" onclick="closeAttendanceModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Submissions & Activities Modal -->
+  <div class="club-modal-overlay" id="submissionsModal" onclick="closeSubmissionsModal(event)">
+    <div class="club-modal-card" style="max-width: 580px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Activities & Submissions</h3>
+        <button class="modal-close-icon-btn" onclick="closeSubmissionsModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+        Upload your club assignment deliverables, project repositories, or presentation slides for mentor review.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+        <!-- Task 1 -->
+        <div style="padding: 14px; background: var(--bg-canvas); border-radius: 12px; border: 1.5px solid #93c5fd;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div>
+              <span style="font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0284c7; padding: 2px 7px; border-radius: 999px;">CodeConnect</span>
+              <h4 style="font-size: 14px; font-weight: 800; margin-top: 4px; color: var(--text-main);">REST API Architecture Blueprint</h4>
+            </div>
+            <span style="font-size: 11px; font-weight: 800; color: #dc2626; background: #fee2e2; padding: 2px 8px; border-radius: 6px;">Due: Friday</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4; margin-bottom: 10px;">
+            Submit OpenAPI 3.0 specification file and system diagram for the club portal project.
+          </p>
+          <div style="display: flex; gap: 8px;">
+            <input type="file" id="submissionFileInput" style="display: none;" onchange="showToast('File selected: ' + this.files[0].name, 'info')" />
+            <button class="modal-cancel-btn" style="padding: 8px 14px; font-size: 12px;" onclick="document.getElementById('submissionFileInput').click()">Choose File</button>
+            <button class="modal-confirm-join-btn" style="padding: 8px 14px; font-size: 12px;" onclick="submitAssignment('REST API Blueprint')">Submit Deliverable</button>
+          </div>
+        </div>
+
+        <!-- Task 2 -->
+        <div style="padding: 14px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+            <div>
+              <span style="font-size: 10px; font-weight: 800; background: #fce7f3; color: #be185d; padding: 2px 7px; border-radius: 999px;">TechnoTribe</span>
+              <h4 style="font-size: 14px; font-weight: 800; margin-top: 4px; color: var(--text-main);">Stage Theme & Lighting Concept</h4>
+            </div>
+            <span style="font-size: 11px; font-weight: 800; color: #2563eb; background: #dbeafe; padding: 2px 8px; border-radius: 6px;">In Progress</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+            Mood board and color palette deck for the Annual Fest amphitheatre stage.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: right;">
+        <button class="modal-cancel-btn" onclick="closeSubmissionsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Evaluations & Rubric Modal -->
+  <div class="club-modal-overlay" id="evaluationsModal" onclick="closeEvaluationsModal(event)">
+    <div class="club-modal-card" style="max-width: 580px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Mentor Evaluation & Rubric Scores</h3>
+        <button class="modal-close-icon-btn" onclick="closeEvaluationsModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+        Official evaluation records submitted by authorized faculty and club mentors.
+      </p>
+
+      <div style="background: var(--bg-canvas); border-radius: 14px; padding: 18px; border: 1px solid var(--border-soft); margin-bottom: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div>
+            <div style="font-weight: 800; font-size: 15px; color: var(--text-main);">Microservices & FastAPIs Sprint</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Evaluator: <strong>Harsh Bhaiya</strong> (CodeConnect Mentor)</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 22px; font-weight: 800; color: #16a34a;">94 / 100</div>
+            <div style="font-size: 11px; font-weight: 700; color: #16a34a;">Grade: A+ (Honors)</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12.5px; border-top: 1px solid var(--border-soft); padding-top: 12px;">
+          <div>Technical Correctness: <strong>25/25</strong></div>
+          <div>Code Structure: <strong>23/25</strong></div>
+          <div>Documentation & Specs: <strong>24/25</strong></div>
+          <div>Presentation & Defense: <strong>22/25</strong></div>
+        </div>
+
+        <div style="margin-top: 12px; padding: 10px 12px; background: #ffffff; border-radius: 8px; border: 1px solid var(--border-soft); font-size: 12px; color: var(--text-main);">
+          <em>&ldquo;Exceptional mastery in modular routing and secure token authorization. Priyanshu showed high leadership and mentored peers during debugging.&rdquo;</em>
+          <div style="font-size: 11px; color: var(--text-light); margin-top: 4px;">— Harsh Bhaiya, 08 Apr 2026</div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button class="modal-confirm-join-btn" onclick="closeEvaluationsModal(); openCertificatesModal();">View Certificates &rarr;</button>
+        <button class="modal-cancel-btn" onclick="closeEvaluationsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Certificates & Transcripts Modal -->
+  <div class="club-modal-overlay" id="certificatesModal" onclick="closeCertificatesModal(event)">
+    <div class="club-modal-card" style="max-width: 580px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Issued Certificates & Transcript</h3>
+        <button class="modal-close-icon-btn" onclick="closeCertificatesModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px;">
+        Verified institutional credentials acknowledging club participation, leadership & achievements.
+      </p>
+
+      <div style="border: 2px dashed #93c5fd; border-radius: 14px; padding: 20px; background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%); margin-bottom: 18px; text-align: center;">
+        <div style="font-size: 11px; font-weight: 800; letter-spacing: 1px; color: #0369a1; text-transform: uppercase;">MSOT Student Development Council</div>
+        <h4 style="font-size: 18px; font-weight: 800; color: #0c4a6e; margin: 6px 0;">Certificate of Excellence & Participation</h4>
+        <p style="font-size: 13px; color: #0369a1; margin-bottom: 10px;">Awarded to <strong>Priyanshu</strong> for outstanding performance in the <em>Spring Hackathon & CodeConnect Sprint</em>.</p>
+        <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; background: rgba(255,255,255,0.8); padding: 4px 12px; border-radius: 999px; color: #0369a1; font-weight: 700;">
+          <span>&#128274; Verified ID: MSOT-2026-CC-9912</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button class="modal-cancel-btn" onclick="closeCertificatesModal()">Close</button>
+        <button class="modal-confirm-join-btn" onclick="downloadCertificate()">Download Official PDF Certificate</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. My Active Clubs Modal -->
+  <div class="club-modal-overlay" id="myClubsModal" onclick="closeMyClubsModal(event)">
+    <div class="club-modal-card" style="max-width: 540px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">My Active Club Memberships</h3>
+        <button class="modal-close-icon-btn" onclick="closeMyClubsModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Clubs where your membership has been approved by the Faculty Mentor & Committee.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+        <div style="padding: 12px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-weight: 800; font-size: 14px;">CodeConnect</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Lead: Sia Charan • Mentor: Harsh Bhaiya</div>
+          </div>
+          <span style="font-size: 11px; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 3px 8px; border-radius: 6px;">Active Member</span>
+        </div>
+
+        <div style="padding: 12px 16px; background: var(--bg-canvas); border-radius: 12px; border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-weight: 800; font-size: 14px;">TechnoTribe</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Lead: Sathwik Satya • Mentor: Syed Sir</div>
+          </div>
+          <span style="font-size: 11px; font-weight: 700; color: #16a34a; background: #dcfce7; padding: 3px 8px; border-radius: 6px;">Active Member</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <button class="modal-confirm-join-btn" onclick="closeMyClubsModal(); openRegistryModal();">Explore Other Clubs &rarr;</button>
+        <button class="modal-cancel-btn" onclick="closeMyClubsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Published Event Gallery Modal -->
+  <div class="club-modal-overlay" id="galleryModal" onclick="closeGalleryModal(event)">
+    <div class="club-modal-card" style="max-width: 660px; padding: 26px;" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 19px; font-weight: 800; color: var(--text-main);">Published Event Gallery</h3>
+        <button class="modal-close-icon-btn" onclick="closeGalleryModal()">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+        Curated photo highlights and memories from official campus activities.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-height: 420px; overflow-y: auto;">
+        <div>
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&auto=format&fit=crop&q=80" alt="CodeConnect Hackathon" style="width: 100%; height: 130px; object-fit: cover; border-radius: 10px;" />
+          <div style="font-size: 12px; font-weight: 700; margin-top: 4px;">CodeConnect AI Hackathon</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Tech Lab 3B • 12 Apr 2026</div>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=500&auto=format&fit=crop&q=80" alt="Nexcell Pitch" style="width: 100%; height: 130px; object-fit: cover; border-radius: 10px;" />
+          <div style="font-size: 12px; font-weight: 700; margin-top: 4px;">Nexcell Startup Ideathon</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Incubation Cell • 15 Apr 2026</div>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&auto=format&fit=crop&q=80" alt="Sports Meet" style="width: 100%; height: 130px; object-fit: cover; border-radius: 10px;" />
+          <div style="font-size: 12px; font-weight: 700; margin-top: 4px;">Sports Club Athletics League</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Main Ground • 18 Apr 2026</div>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=500&auto=format&fit=crop&q=80" alt="TechnoTribe Fest" style="width: 100%; height: 130px; object-fit: cover; border-radius: 10px;" />
+          <div style="font-size: 12px; font-weight: 700; margin-top: 4px;">TechnoTribe Annual Showcase</div>
+          <div style="font-size: 11px; color: var(--text-muted);">Cultural Amphitheatre • 22 Apr 2026</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; text-align: right;">
+        <button class="modal-cancel-btn" onclick="closeGalleryModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- =======================================================
+       JAVASCRIPT APPLICATION LOGIC
        ======================================================= -->
   <script>
-    // 1. Session verification & auto-population from SQLite database
+    // 1. Session verification & dynamic role population
     const sessionRaw = localStorage.getItem('user_session');
+    let currentUser = null;
+
     if (!sessionRaw) {
-      window.location.href = 'index.html';
+      // Default demo session if accessed directly
+      currentUser = {
+        name: "Priyanshu",
+        identifier: "student@msot.edu",
+        role: "student"
+      };
+      localStorage.setItem('user_session', JSON.stringify(currentUser));
     } else {
-      const user = JSON.parse(sessionRaw);
-      document.getElementById('userNameLabel').textContent = user.name || 'Aarav Sharma';
-      document.getElementById('userRoleLabel').textContent = user.role ? user.role.toUpperCase() : 'STUDENT';
+      currentUser = JSON.parse(sessionRaw);
+    }
+
+    function populateUserInfo(user) {
+      const name = user.name || 'Priyanshu';
+      const rawRole = (user.role || 'student').toLowerCase();
+      const email = user.identifier || 'student@msot.edu';
+
+      let displayRoleBadge = 'STUDENT';
+      let portalTitle = '🎓 STUDENT PORTAL';
+
+      if (rawRole === 'committee' || rawRole === 'president' || rawRole === 'vp') {
+        displayRoleBadge = 'COMMITTEE';
+        portalTitle = '🏛️ CLUB COMMITTEE PORTAL';
+      } else if (rawRole === 'admin') {
+        displayRoleBadge = 'ADMIN';
+        portalTitle = '🛡️ ADMIN PORTAL';
+      } else if (rawRole === 'faculty') {
+        displayRoleBadge = 'FACULTY';
+        portalTitle = '👨‍🏫 FACULTY ADVISOR';
+      }
+
+      document.getElementById('userNameLabel').textContent = name;
+      document.getElementById('userRoleLabel').textContent = displayRoleBadge;
+      document.getElementById('dropdownUserName').textContent = name;
+      document.getElementById('dropdownUserEmail').textContent = email;
+      document.getElementById('dropdownUserRole').textContent = portalTitle;
+    }
+
+    populateUserInfo(currentUser);
+
+    // 2. Navbar Dropdown Toggles (Announcements, Notifications, Profile)
+    function closeAllNavbarDropdowns() {
+      const dropdowns = ['announcementsDropdown', 'notificationsDropdown', 'profileDropdown'];
+      dropdowns.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('show');
+      });
+      const profWidget = document.getElementById('userProfileWidget');
+      if (profWidget) profWidget.classList.remove('active');
+    }
+
+    function toggleAnnouncementsPanel(e) {
+      if (e) e.stopPropagation();
+      const panel = document.getElementById('announcementsDropdown');
+      const isShown = panel.classList.contains('show');
+      closeAllNavbarDropdowns();
+      if (!isShown) panel.classList.add('show');
+    }
+
+    function toggleNotificationsPanel(e) {
+      if (e) e.stopPropagation();
+      const panel = document.getElementById('notificationsDropdown');
+      const isShown = panel.classList.contains('show');
+      closeAllNavbarDropdowns();
+      if (!isShown) panel.classList.add('show');
+    }
+
+    function toggleProfileDropdown(e) {
+      if (e) e.stopPropagation();
+      const dropdown = document.getElementById('profileDropdown');
+      const widget = document.getElementById('userProfileWidget');
+      const isShown = dropdown.classList.contains('show');
+      closeAllNavbarDropdowns();
+      if (!isShown) {
+        dropdown.classList.add('show');
+        widget.classList.add('active');
+      }
+    }
+
+    // Dismiss dropdowns when clicking outside
+    document.addEventListener('click', () => {
+      closeAllNavbarDropdowns();
+    });
+
+    function clearAllNotifications() {
+      const badge = document.getElementById('notifBadge');
+      const countText = document.getElementById('notifCountText');
+      const list = document.getElementById('notifItemsList');
+      if (badge) badge.style.display = 'none';
+      if (countText) countText.textContent = '0';
+      if (list) {
+        list.innerHTML = `
+          <div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 13px;">
+            ✓ All notifications caught up!
+          </div>
+        `;
+      }
+      showToast('All notifications marked as read', 'info');
+    }
+
+    // 3. Demo Persona Switcher (For Pair-Programming & Review Testing)
+    function switchDemoUser(role) {
+      closeAllNavbarDropdowns();
+      const personas = {
+        student: { name: "Priyanshu", identifier: "student@msot.edu", role: "student" },
+        committee: { name: "Sia Charan & Akshara", identifier: "committee@msot.edu", role: "committee" },
+        president: { name: "Sia Charan (President)", identifier: "committee@msot.edu", role: "committee" },
+        vp: { name: "Akshara (Vice President)", identifier: "committee@msot.edu", role: "committee" },
+        faculty: { name: "Harsh Bhaiya", identifier: "faculty@msot.edu", role: "faculty" }
+      };
+
+      const selected = personas[role] || personas.student;
+      localStorage.setItem('user_session', JSON.stringify(selected));
+      currentUser = selected;
+      populateUserInfo(selected);
+      showToast(`Switched active portal view to: ${selected.name} (${selected.role.toUpperCase()})`, 'success');
     }
 
     function handleUserLogout() {
@@ -1490,57 +2675,160 @@
       }
     }
 
-    // 2. Comprehensive Club Database for the Interactive Modal
+    // 4. Theme Toggle (Light / Dark Mode)
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme_preference', isDark ? 'dark' : 'light');
+      updateThemeIcon(isDark);
+      showToast(isDark ? '🌙 Dark theme enabled' : '☀️ Light theme enabled', 'info');
+    }
+
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      if (isDark) {
+        icon.innerHTML = `
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        `;
+      } else {
+        icon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+      }
+    }
+
+    if (localStorage.getItem('theme_preference') === 'dark') {
+      document.body.classList.add('dark-theme');
+      updateThemeIcon(true);
+    }
+
+    // 5. Toast Notification Helper
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = `toast-item toast-${type}`;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s, transform 0.3s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    // 6. Live Search Handler
+    function handleSearch(query) {
+      const q = (query || '').toLowerCase().trim();
+      const clearBtn = document.getElementById('searchClearBtn');
+      const feedback = document.getElementById('searchFeedback');
+      if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+      let matchedClubs = 0;
+      const clubCards = document.querySelectorAll('.club-card');
+      clubCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+          matchedClubs++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      let matchedEvents = 0;
+      const eventCards = document.querySelectorAll('.event-card');
+      eventCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+          matchedEvents++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (feedback) {
+        if (q) {
+          feedback.style.display = 'block';
+          feedback.textContent = `Found ${matchedClubs} club(s) and ${matchedEvents} event(s) matching "${query}".`;
+        } else {
+          feedback.style.display = 'none';
+        }
+      }
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('heroSearchInput');
+      if (input) {
+        input.value = '';
+        handleSearch('');
+        input.focus();
+      }
+    }
+
+    function scrollToEvents() {
+      const sec = document.querySelector('.upcoming-events-section');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 7. Verified Seed Clubs Database (Strictly from Product Specification)
     const clubDatabase = {
-      coding: {
-        title: "Coding Club",
-        category: "Tech & Coding",
+      codeconnect: {
+        title: "CodeConnect",
+        category: "Coding & Technology",
         badgeClass: "category-coding",
         img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&auto=format&fit=crop&q=80",
-        description: "Explore cutting-edge software development, AI, hackathons, and web architectures. We hold weekly live coding sessions, algorithmic challenges, and collaborate on real open-source club projects.",
-        leads: "Priyanshu (Lead) & Core Team",
-        members: "120 Active Members",
+        description: "Official technology and coding club of MSOT. Focuses on full-stack architecture, algorithm challenges, hackathons, and real-world software engineering.",
+        leads: "Sia Charan (President) & Akshara (Vice President)",
+        members: "142 Active Members",
         schedule: "Every Friday • 4:00 PM",
-        venue: "Computer Lab 3B, Main Block"
+        venue: "Tech Lab 3B, Main Block"
       },
-      arts: {
-        title: "Creative Arts Club",
-        category: "Art & Culture",
-        badgeClass: "category-arts",
-        img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop&q=80",
-        description: "Express your creativity across sketching, digital art, photography, canvas painting, and exhibition design. Join us to design club festival posters, stage themes, and gallery installations.",
-        leads: "Sneha & Priti",
-        members: "95 Active Members",
-        schedule: "Every Wednesday • 3:30 PM",
-        venue: "Cultural Center Studio"
+      nexcell: {
+        title: "Nexcell",
+        category: "Entrepreneurship & Innovation",
+        badgeClass: "category-innovation",
+        img: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&auto=format&fit=crop&q=80",
+        description: "Dedicated to campus entrepreneurship, startup ideation, venture capital pitch days, and tech prototyping. Backed by campus incubation programs.",
+        leads: "Rudra (President)",
+        members: "88 Active Members",
+        schedule: "Every Wednesday • 4:30 PM",
+        venue: "Incubation Center 2A"
       },
       sports: {
         title: "Sports Club",
-        category: "Sports",
+        category: "Sports & Athletics",
         badgeClass: "category-sports",
         img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80",
-        description: "Promoting physical fitness, team discipline, and competitive spirit. We organize intra-college football, cricket, basketball, and badminton tournaments throughout the semester.",
-        leads: "Kundan & Navya",
-        members: "150 Active Members",
+        description: "Promotes competitive sports, team spirit, physical conditioning, and inter-college tournaments across football, basketball, cricket, and athletics.",
+        leads: "Astithwa (President) & Piyush Tripathi (Vice President)",
+        members: "165 Active Members",
         schedule: "Tue & Thu • 5:00 PM",
         venue: "University Sports Ground"
       },
-      green: {
-        title: "Green Earth Club",
-        category: "Environment",
-        badgeClass: "category-green",
-        img: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&auto=format&fit=crop&q=80",
-        description: "Committed to sustainability, campus plantation drives, recycling initiatives, and clean energy awareness. Make a direct tangible difference in our college environment.",
-        leads: "Eco Advisory Council",
-        members: "80 Active Members",
-        schedule: "Every Saturday • 9:00 AM",
-        venue: "Botanical Campus Garden"
+      technotribe: {
+        title: "TechnoTribe",
+        category: "Cultural & Creative",
+        badgeClass: "category-arts",
+        img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop&q=80",
+        description: "Celebrates creativity, digital music, theater, visual arts, and festival production. Organizes the flagship Annual Campus Cultural Fest.",
+        leads: "Sathwik Satya (President) & Deepu (Vice President)",
+        members: "110 Active Members",
+        schedule: "Every Saturday • 11:00 AM",
+        venue: "Cultural Center Amphitheatre"
       }
     };
 
     let activeSelectedClub = null;
 
-    // 3. Open Modal Function
     function openClubModal(clubId) {
       const club = clubDatabase[clubId];
       if (!club) return;
@@ -1561,36 +2849,155 @@
       document.getElementById('clubModalOverlay').classList.add('modal-active');
     }
 
-    // 4. Close Modal Function
     function closeClubModal(e) {
       if (!e || e.target.id === 'clubModalOverlay' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
         document.getElementById('clubModalOverlay').classList.remove('modal-active');
       }
     }
 
-    // 5. Join Club Handler
     function confirmClubJoin() {
       if (activeSelectedClub) {
-        alert(`Application Submitted! Welcome to ${activeSelectedClub.title}.\nThe club leads will contact you for orientation.`);
+        showToast(`🎉 Membership Request Submitted to ${activeSelectedClub.title}! Leadership will review your application.`, 'success');
         closeClubModal();
       }
     }
 
-    // 6. Gemini AI Assistant integration
-    function askClubAITutor() {
-      const promptText = prompt('Ask the MSOT Club AI Assistant a question:');
-      if (!promptText) return;
+    // 8. Institutional Modal Functions
+    function openRegistryModal() {
+      document.getElementById('registryModal').classList.add('modal-active');
+    }
+    function closeRegistryModal(e) {
+      if (!e || e.target.id === 'registryModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('registryModal').classList.remove('modal-active');
+      }
+    }
+
+    function openAttendanceModal() {
+      document.getElementById('attendanceModal').classList.add('modal-active');
+    }
+    function closeAttendanceModal(e) {
+      if (!e || e.target.id === 'attendanceModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('attendanceModal').classList.remove('modal-active');
+      }
+    }
+    function submitAttendanceCode(e) {
+      e.preventDefault();
+      const code = document.getElementById('attendanceSessionInput').value.trim();
+      closeAttendanceModal();
+      showToast(`✓ Check-In Confirmed! Session [${code}] marked as PRESENT.`, 'success');
+    }
+
+    function openSubmissionsModal() {
+      document.getElementById('submissionsModal').classList.add('modal-active');
+    }
+    function closeSubmissionsModal(e) {
+      if (!e || e.target.id === 'submissionsModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('submissionsModal').classList.remove('modal-active');
+      }
+    }
+    function submitAssignment(taskName) {
+      closeSubmissionsModal();
+      showToast(`✓ Deliverable for "${taskName}" successfully uploaded for mentor evaluation!`, 'success');
+    }
+
+    function openEvaluationsModal() {
+      document.getElementById('evaluationsModal').classList.add('modal-active');
+    }
+    function closeEvaluationsModal(e) {
+      if (!e || e.target.id === 'evaluationsModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('evaluationsModal').classList.remove('modal-active');
+      }
+    }
+
+    function openCertificatesModal() {
+      document.getElementById('certificatesModal').classList.add('modal-active');
+    }
+    function closeCertificatesModal(e) {
+      if (!e || e.target.id === 'certificatesModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('certificatesModal').classList.remove('modal-active');
+      }
+    }
+    function downloadCertificate() {
+      showToast('📥 Generating signed PDF certificate [MSOT-2026-CC-9912]...', 'success');
+    }
+
+    function openMyClubsModal() {
+      document.getElementById('myClubsModal').classList.add('modal-active');
+    }
+    function closeMyClubsModal(e) {
+      if (!e || e.target.id === 'myClubsModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('myClubsModal').classList.remove('modal-active');
+      }
+    }
+
+    function openGalleryModal() {
+      document.getElementById('galleryModal').classList.add('modal-active');
+    }
+    function closeGalleryModal(e) {
+      if (!e || e.target.id === 'galleryModal' || e.target.classList.contains('modal-close-icon-btn') || e.target.classList.contains('modal-cancel-btn')) {
+        document.getElementById('galleryModal').classList.remove('modal-active');
+      }
+    }
+
+    // 9. Interactive AI Assistant Chat Drawer
+    function toggleAIChat() {
+      const drawer = document.getElementById('aiChatDrawer');
+      const isVisible = drawer.style.display !== 'none';
+      drawer.style.display = isVisible ? 'none' : 'flex';
+      if (!isVisible) {
+        setTimeout(() => document.getElementById('aiChatInput').focus(), 150);
+      }
+    }
+
+    function sendPrompt(text) {
+      const input = document.getElementById('aiChatInput');
+      input.value = text;
+      submitAIChat();
+    }
+
+    async function submitAIChat(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('aiChatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const messages = document.getElementById('aiChatMessages');
+      const sendBtn = document.getElementById('aiSendBtn');
+
+      // Append User message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'ai-msg ai-msg-user';
+      userMsg.textContent = text;
+      messages.appendChild(userMsg);
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+
+      // Append Bot Loading indicator
+      const botMsg = document.createElement('div');
+      botMsg.className = 'ai-msg ai-msg-bot';
+      botMsg.innerHTML = '<span style="opacity:0.6;">Thinking...</span>';
+      messages.appendChild(botMsg);
+      messages.scrollTop = messages.scrollHeight;
+
+      sendBtn.disabled = true;
 
       const user = JSON.parse(localStorage.getItem('user_session') || '{}');
+      const apiHost = window.location.port === '8000' ? '' : 'http://127.0.0.1:8000';
 
-      fetch('http://127.0.0.1:8000/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: promptText, user_id: user.id || 1 })
-      })
-      .then(res => res.json())
-      .then(data => alert(`MSOT AI Assistant:\n\n${data.reply}`))
-      .catch(() => alert('Could not connect to FastAPI server on port 8000.'));
+      try {
+        const res = await fetch(`${apiHost}/api/chat`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text, user_id: user.id || 1 })
+        });
+        const data = await res.json();
+        botMsg.textContent = data.reply || "Sorry, I couldn't generate an answer. Please try again.";
+      } catch (err) {
+        botMsg.textContent = "Unable to connect to MSOT Assistant. Make sure the backend server on port 8000 is active.";
+      } finally {
+        sendBtn.disabled = false;
+        messages.scrollTop = messages.scrollHeight;
+      }
     }
   </script>
 </body>

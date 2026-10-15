@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clubs</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <h1>Join a club</h1>
+    <section id="clubGrid" class="club-grid" aria-label="Clubs"></section>
+  </main>
+
+  <dialog id="clubModal" class="club-modal">
+    <h2 id="modalTitle"></h2>
+    <p id="modalTagline"></p>
+    <p id="modalMembers"></p>
+    <div class="modal-actions">
+      <button type="button" id="modalClose" class="btn-secondary">Close</button>
+      <button type="button" id="modalJoin" class="join-club-button">Join club</button>
+    </div>
+  </dialog>
+
+  <script src="js/clubs-data.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/modal.js"></script>
+</body>
+</html>
